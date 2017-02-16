@@ -1,17 +1,9 @@
 
-public class Hero {
+public class Hero extends Character{
 
-	int posx, posy;
-	
-	public Hero(){
-		posx = 1;
-		posy = 1;		
+	public Hero(int x, int y) {
+		super(x, y);
 	}
+
 	
-	public boolean moveHero(){
-		
-		
-		
-		return false;
-	}
 }
