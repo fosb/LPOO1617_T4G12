@@ -1,4 +1,8 @@
+package character_subclasses;
 import java.io.IOException;
+
+import gui.Map;
+import logic.Character;
 
 public class Game {
 	
@@ -9,9 +13,9 @@ public class Game {
 		int game_state = 1;
 		Game this_game = new Game();
 		Hero this_hero = new Hero(this_game, 1, 1);
-		
-		this_game.createMap();
-		this_game.drawMap();
+		Map this_map = new Map(this_game, 1);
+		/*this_game.createMap();
+		this_game.drawMap();*/
 		
 		while(game_state == 1){
 			//ask for user input
@@ -26,10 +30,10 @@ public class Game {
 		}
 
 	}
-	
+	/*
 	public void createMap(){
 	
-		String[][] map = {{" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "},
+		/*String[][] map = {{" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "},
 		          		  {" X "," H ","   ","   "," I ","   "," X ","   "," G "," X "},
 		                  {" X "," X "," X ","   "," X "," X "," X ","   ","   "," X "},
 		                  {" X ","   "," I ","   "," I ","   "," X ","   ","   "," X "},
@@ -38,8 +42,8 @@ public class Game {
 		                  {" I ","   ","   ","   ","   ","   ","   ","   ","   "," X "},
 		                  {" X "," X "," X ","   "," X "," X "," X "," X ","   "," X "},
 		                  {" X ","   "," I ","   "," I ","   "," X "," K ","   "," X "},
-		                  {" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "}};
-	}
+		                  {" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "}};*/
+	/*}
 	
 	public String[][] getMap(){
 		
@@ -82,5 +86,5 @@ public class Game {
 			
 		}
 		
-	}
+	}*/
 }

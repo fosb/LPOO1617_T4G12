@@ -1,16 +1,19 @@
+package logic;
 import java.io.IOException;
+
+import character_subclasses.Game;
 
 public class Character {
 	
 	//pode ser Hero Ogre Guard Wall Lever OpenDoor ClosedDoor Blank
-	int posx, posy;
-	Game g;
+	public int posx, posy;
+	public Game g;
+	protected String symbol;
 	
 	public Character(Game game, int x, int y){
 		g = game;
 		posx = x;
 		posy = y;
-		
 	}
 	
 	public int returnPosX(){
@@ -108,4 +111,13 @@ public class Character {
 		return false;
 	}
 
+	public Character getCharacter(){
+		
+		return this;
+	}
+	
+	/*public String getCaracter(){
+		
+		//return this.caracter;
+	}*/
 }

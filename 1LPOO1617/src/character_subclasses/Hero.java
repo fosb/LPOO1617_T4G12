@@ -1,22 +1,29 @@
+package character_subclasses;
+
+import logic.Character;
 
 public class Hero extends Character{
 
-	String caracter; // H - Normal, K - Carrying Key, A - Armed w/Club
+	// H - Normal, K - Carrying Key, A - Armed w/Club
 	Boolean armed = false;
+	
 	
 	public Hero(Game g, int x, int y) {
 		
 		super(g, x, y);
+		
+		this.symbol = " H "; // O - Normal, $ - Guarding Key
 	}
+
 	
 	public Hero(Game g, int x, int y, Boolean arm) {
 		
 		super(g, x, y);
 		
 		if(arm)
-			caracter = " A ";
+			this.symbol = " A ";
 		else
-			caracter = " H ";
+			this.symbol = " H ";
 	}
 
 	
