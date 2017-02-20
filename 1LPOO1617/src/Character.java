@@ -2,6 +2,8 @@ import java.io.IOException;
 
 public class Character {
 	
+	//pode ser Hero Ogre Espada Parede Alavanca OpenDoor ClosedDor Blank
+	String type;
 	int posx, posy;
 	Game g;
 	
@@ -17,6 +19,7 @@ public class Character {
 	}
 	
 	public int returnPosY(){
+		
 		
 		return posy;
 	}

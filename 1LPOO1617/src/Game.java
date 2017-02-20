@@ -71,6 +71,7 @@ public class Game {
 	
 	public void updateMap(Character c, int direction){
 		
+		
 		int next_posx = c.returnPosX();
 		int next_posy = c.returnPosY();
 		
