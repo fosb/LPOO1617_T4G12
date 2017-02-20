@@ -1,8 +1,8 @@
 
 public class Hero extends Character{
 
-	public Hero(int x, int y) {
-		super(x, y);
+	public Hero(Game g, int x, int y) {
+		super(g, x, y);
 	}
 
 	
