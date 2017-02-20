@@ -12,7 +12,6 @@ public class Game {
 		
 		int game_state = 1;
 		Game this_game = new Game();
-		Hero this_hero = new Hero(this_game, 1, 1);
 		Map this_map = new Map(this_game, 1);
 		/*this_game.createMap();
 		this_game.drawMap();*/

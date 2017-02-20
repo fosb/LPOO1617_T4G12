@@ -10,6 +10,10 @@ public class Character {
 	public Game g;
 	protected String symbol;
 	
+	public Character(){
+		
+	}
+	
 	public Character(Game game, int x, int y){
 		g = game;
 		posx = x;

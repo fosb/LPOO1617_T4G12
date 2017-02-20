@@ -1,11 +1,12 @@
 package gui;
 
 import character_subclasses.Game;
+import character_subclasses.Hero;
 
 public class Map {
 	
 	int type;
-	Character[][] map;
+	Character[][] map = new Character[10][10];
 	Game game;
 	
 	public Map(Game game, int type){
@@ -29,7 +30,8 @@ public class Map {
 				int j = 0;
 				while(j < 10){
 					if(map1[i][j] == " H "){
-						
+						Hero h = new Hero(game, i, j);
+						map[i][j] = h;
 					}
 					j++;
 				}
