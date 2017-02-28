@@ -6,71 +6,37 @@ import logic.Character;
 
 public class Game {
 	
-	static String[][] map;
+	public Character[][] map;
 
 	public static void main(String args[]) throws IOException{
 		
 		int game_state = 1;
 		Game this_game = new Game();
-		Map this_map = new Map(this_game, 1);
-		/*this_game.createMap();
-		this_game.drawMap();*/
+		Map map = new Map(this_game, 1);
+		map.drawMap();
 		
 		while(game_state == 1){
 			//ask for user input
 			System.out.println("Enter a direction:");
 			//tries to move character
-			if(this_hero.moveCharacter() != 0){
-				//draw new map
-				
-			}
-			
+			if(map.hero.moveCharacter() != 0)
+				map.drawMap();
+			else
+				System.out.println("You can't go there...");
 			//restart
 		}
 
 	}
-	/*
-	public void createMap(){
-	
-		/*String[][] map = {{" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "},
-		          		  {" X "," H ","   ","   "," I ","   "," X ","   "," G "," X "},
-		                  {" X "," X "," X ","   "," X "," X "," X ","   ","   "," X "},
-		                  {" X ","   "," I ","   "," I ","   "," X ","   ","   "," X "},
-		                  {" X "," X "," X ","   "," X "," X "," X ","   ","   "," X "},
-		                  {" I ","   ","   ","   ","   ","   ","   ","   ","   "," X "},
-		                  {" I ","   ","   ","   ","   ","   ","   ","   ","   "," X "},
-		                  {" X "," X "," X ","   "," X "," X "," X "," X ","   "," X "},
-		                  {" X ","   "," I ","   "," I ","   "," X "," K ","   "," X "},
-		                  {" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "}};*/
-	/*}
-	
-	public String[][] getMap(){
-		
-		return map;
-	}
 	
 	public String getMapCoordinates(int x, int y){
 		
-		return map[x][y];
+		return this.map[x][y].getSymbol();
 	}
-	
+	/*
 	public void setMapEmpty(int x, int y){
 		
 		map[x][y] = "   ";
   	}
-	
-	public void drawMap(){
-		int i = 0;
-		while(i < 10){
-			int j = 0;
-			while(j < 10){
-				System.out.print(getMapCoordinates(i,j));
-				j++;
-			}
-			System.out.println();
-			i++;
-		}
-	}
 	
 	public void updateMap(Character c, int direction){
 		

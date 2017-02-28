@@ -8,11 +8,7 @@ public class Character {
 	//pode ser Hero Ogre Guard Wall Lever OpenDoor ClosedDoor Blank
 	public int posx, posy;
 	public Game g;
-	protected String symbol;
-	
-	public Character(){
-		
-	}
+	public String symbol;
 	
 	public Character(Game game, int x, int y){
 		g = game;
@@ -33,56 +29,31 @@ public class Character {
 	
 	public int moveCharacter() throws IOException{
 		
+		System.out.println("moveCharacter()");
 		char c = (char) System.in.read();
 		
-		/*if(c == 'u'){
-			if(canCharacterMove(c)){
-				posx-=1;
-				return 1;
-			}
-		}
-		else if(c == 'd'){
-			if(canCharacterMove(c)){
-				posx-=1;
-				return 2;
-			}
-		}
-		else if(c == 'l'){
-			if(canCharacterMove(c)){
-				posx-=1;
-				return 3;
-			}
-		}
-		else if(c == 'r'){
-			if(canCharacterMove(c)){
-				posx-=1;
-				return 4;
-			}
-		}*/
-
-		
 		switch (c){
-		
-		case 'u':	if(canCharacterMove(c)){
+		//UP
+		case 'w':	if(canCharacterMove(c)){
 						posx-=1;
 						return 1;
 					}
 					break;
-					
+		//DOWN			
+		case 's':	if(canCharacterMove(c)){
+						posx+=1;
+						return 1;
+					}
+					break;
+		//LEFT
+		case 'a':	if(canCharacterMove(c)){
+						posy-=1;
+						return 1;
+					}
+					break;
+		//RIGHT
 		case 'd':	if(canCharacterMove(c)){
-						posx-=1;
-						return 1;
-					}
-					break;
-		
-		case 'l':	if(canCharacterMove(c)){
-						posx-=1;
-						return 1;
-					}
-					break;
-		
-		case 'r':	if(canCharacterMove(c)){
-						posx-=1;
+						posy+=1;
 						return 1;
 					}
 					break;
@@ -93,21 +64,22 @@ public class Character {
 	
 	public boolean canCharacterMove(char direction){
 		
+		System.out.println("canCharacterMove()");
 		switch (direction){
 		
-		case 'u':	if(g.getMapCoordinates(this.posx-1,this.posy) != "  ")
+		case 'w':	if(g.getMapCoordinates(this.posx-1,this.posy) == "  ")
 						return true;
 					break;
 					
-		case 'd':	if(g.getMapCoordinates(this.posx+1,this.posy+1) != "  ")
+		case 's':	if(g.getMapCoordinates(this.posx+1,this.posy+1) == "  ")
 						return true;
 					break;
 		
-		case 'l':	if(g.getMapCoordinates(this.posx,this.posy-1) != "  ")
+		case 'a':	if(g.getMapCoordinates(this.posx,this.posy-1) == "  ")
 						return true;
 					break;
 			
-		case 'r':	if(g.getMapCoordinates(this.posx,this.posy+1) != "  ")
+		case 'd':	if(g.getMapCoordinates(this.posx,this.posy+1) == "  ")
 						return true;
 					break;
 		}
@@ -120,6 +92,10 @@ public class Character {
 		return this;
 	}
 	
+	public String getSymbol(){
+		
+		return this.symbol;
+	}
 	/*public String getCaracter(){
 		
 		//return this.caracter;
