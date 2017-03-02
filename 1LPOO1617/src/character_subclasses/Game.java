@@ -6,21 +6,22 @@ import logic.Character;
 
 public class Game {
 	
-	public Character[][] map;
+	Map map;
 
 	public static void main(String args[]) throws IOException{
 		
 		int game_state = 1;
 		Game this_game = new Game();
-		Map map = new Map(this_game, 1);
-		map.drawMap();
+		this_game.getMap().drawMap();
 		
 		while(game_state == 1){
 			//ask for user input
 			System.out.println("Enter a direction:");
 			//tries to move character
-			if(map.hero.moveCharacter() != 0)
-				map.drawMap();
+			if(this_game.getMap().hero.moveCharacter() != 0){
+				System.out.println("TEST BREAK 2");
+				this_game.getMap().drawMap();
+			}
 			else
 				System.out.println("You can't go there...");
 			//restart
@@ -28,9 +29,20 @@ public class Game {
 
 	}
 	
+	public Game(){
+		
+		map = new Map(this, 1);
+	}
+	
 	public String getMapCoordinates(int x, int y){
 		
-		return this.map[x][y].getSymbol();
+			return this.map.getCharacter(x, y).getSymbol();
+		
+	}
+	
+	public Map getMap(){
+		
+		return map;
 	}
 	/*
 	public void setMapEmpty(int x, int y){

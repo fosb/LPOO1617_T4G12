@@ -88,4 +88,9 @@ public class Map {
 			i++;
 		}
 	}
+	
+	public Character getCharacter(int x, int y){
+		
+		return map[x][y];
+	}
 }
