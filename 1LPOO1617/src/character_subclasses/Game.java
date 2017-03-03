@@ -6,7 +6,7 @@ import logic.Character;
 
 public class Game {
 	
-	Map map;
+	public Map map;
 
 	public static void main(String args[]) throws IOException{
 		
@@ -18,6 +18,10 @@ public class Game {
 			//ask for user input
 			System.out.println("Enter a direction:");
 			//tries to move character
+			System.out.print(this_game.getMap().hero.posx);
+			System.out.print(" ");
+			System.out.println(this_game.getMap().hero.posy);
+			
 			if(this_game.getMap().hero.moveCharacter() != 0){
 				System.out.println("TEST BREAK 2");
 				this_game.getMap().drawMap();
@@ -43,6 +47,11 @@ public class Game {
 	public Map getMap(){
 		
 		return map;
+	}
+	
+	public void setMap(int posx, int posy, Character chr){
+		
+		this.getMap().map[posx][posy] = chr;
 	}
 	/*
 	public void setMapEmpty(int x, int y){

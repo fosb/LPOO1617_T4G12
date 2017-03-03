@@ -2,6 +2,7 @@ package logic;
 import java.io.IOException;
 import java.util.Scanner;
 
+import character_subclasses.Blank;
 import character_subclasses.Game;
 
 public class Character {
@@ -40,30 +41,44 @@ public class Character {
 		switch (e){
 		//UP
 		case 'w':	if(canCharacterMove(e)){
-						posx-=1;
+			
+						Character chr = new Blank(g, posx, posy);
+						g.setMap(posx, posy, chr);
+						g.setMap(posx-1, posy, this);
+						posx--;
 						return 1;
 					}
 					break;
 		//DOWN			
 		case 's':	if(canCharacterMove(e)){
-						posx+=1;
+						Character chr = new Blank(g, posx, posy);
+						g.setMap(posx, posy, chr);
+						g.setMap(posx+1, posy, this);
+						posx++;
 						return 1;
 					}
 					break;
 		//LEFT
 		case 'a':	if(canCharacterMove(e)){
-						posy-=1;
+						Character chr = new Blank(g, posx, posy);
+						g.setMap(posx, posy, chr);
+						g.setMap(posx, posy-1, this);
+						posy--;
 						return 1;
 					}
 					break;
 		//RIGHT
 		case 'd':	if(canCharacterMove(e)){
-						posy+=1;
+						Character chr = new Blank(g, posx, posy);
+						g.setMap(posx, posy, chr);
+						g.setMap(posx, posy+1, this);
+						posy++;
 						return 1;
 					}
 					break;
 		}
 		
+		in.close();
 		return 0;
 	}
 	
@@ -84,8 +99,10 @@ public class Character {
 						return true;
 					break;
 			
-		case 'd':	if(g.getMapCoordinates(this.posx,this.posy+1) == "   ")
-						return true;
+		case 'd':	if(g.getMapCoordinates(this.posx,this.posy+1) == "   "){
+			System.out.println("57");			
+			return true;
+		}
 					break;
 		}
 		
