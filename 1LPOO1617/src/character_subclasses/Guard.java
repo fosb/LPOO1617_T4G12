@@ -10,7 +10,17 @@ public class Guard extends Character{
 		
 		this.symbol = " G "; // O - Normal, $ - Guarding Key
 	}
-
+	
+	public boolean checkForHero(Character hero){
+		
+		int x = hero.getPosX(), y = hero.getPosY();
+		
+		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1)
+			return true;
+		
+		else
+			return false;
+	}
 
 	
 }

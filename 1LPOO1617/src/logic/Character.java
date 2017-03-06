@@ -18,12 +18,12 @@ public class Character {
 		posy = y;
 	}
 	
-	public int returnPosX(){
+	public int getPosX(){
 		
 		return posx;
 	}
 	
-	public int returnPosY(){
+	public int getPosY(){
 		
 		
 		return posy;
@@ -34,9 +34,13 @@ public class Character {
 		System.out.println("moveCharacter()");
 		//char c = (char) System.in.read();
 		Scanner in = new Scanner(System.in);
-		String move;
+		String move = null;
+		char e = '\0';
+		
 		move = in.nextLine();
-		char e = move.charAt(0);
+		e = move.charAt(0);
+		
+		//char e = move.charAt(0);
 		
 		switch (e){
 		//UP
@@ -77,8 +81,6 @@ public class Character {
 					}
 					break;
 		}
-		
-		in.close();
 		return 0;
 	}
 	
@@ -87,21 +89,28 @@ public class Character {
 		System.out.println("canCharacterMove()");
 		switch (e){
 		
-		case 'w':	if(g.getMapCoordinates(this.posx-1,this.posy) == "   ")
+		case 'w':	if(g.getMapCoordinates(this.posx-1,this.posy) == "   " || 
+						g.getMapCoordinates(this.posx-1,this.posy) == " k " ||
+						g.getMapCoordinates(this.posx-1,this.posy) == " S ")
 						return true;
 					break;
 					
-		case 's':	if(g.getMapCoordinates(this.posx+1,this.posy+1) == "   ")
+		case 's':	if(g.getMapCoordinates(this.posx+1,this.posy) == "   " || 
+						g.getMapCoordinates(this.posx+1,this.posy) == " k " ||
+						g.getMapCoordinates(this.posx+1,this.posy) == " S ")
 						return true;
 					break;
 		
-		case 'a':	if(g.getMapCoordinates(this.posx,this.posy-1) == "   ")
+		case 'a':	if(g.getMapCoordinates(this.posx,this.posy-1) == "   " || 
+						g.getMapCoordinates(this.posx,this.posy-1) == " k " ||
+						g.getMapCoordinates(this.posx,this.posy-1) == " S ")
 						return true;
 					break;
 			
-		case 'd':	if(g.getMapCoordinates(this.posx,this.posy+1) == "   "){
-			System.out.println("57");			
-			return true;
+		case 'd':	if(g.getMapCoordinates(this.posx,this.posy+1) == "   " || 
+						g.getMapCoordinates(this.posx,this.posy+1) == " k " ||
+						g.getMapCoordinates(this.posx,this.posy+1) == " S "){
+						return true;
 		}
 					break;
 		}

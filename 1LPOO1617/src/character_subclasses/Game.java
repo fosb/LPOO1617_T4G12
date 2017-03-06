@@ -18,16 +18,42 @@ public class Game {
 			//ask for user input
 			System.out.println("Enter a direction:");
 			//tries to move character
-			System.out.print(this_game.getMap().hero.posx);
+			System.out.print(this_game.getMap().getHero().posx);
 			System.out.print(" ");
-			System.out.println(this_game.getMap().hero.posy);
+			System.out.println(this_game.getMap().getHero().posy);
 			
-			if(this_game.getMap().hero.moveCharacter() != 0){
+			if(this_game.getMap().getHero().moveCharacter() == 1){
 				System.out.println("TEST BREAK 2");
+				if(this_game.getMap().getGuard().checkForHero(this_game.getMap().getHero())){
+					System.out.println("The Guard caught you!");
+					game_state = 0;
+				}
+				else if(this_game.getMap().getLever().checkForHero(this_game.getMap().getHero())){
+					
+					for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
+						
+						this_game.getMap().getDoors().get(i).openDoors();
+						/*this.g.setMap(this.g.getMap().getDoors()[i].getPosX(), 
+								this.g.getMap().getDoors()[i].getPosY(), this.g.getMap().getDoors()[i]);*/
+					}
+				}
+				else{
+					for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
+						
+						if(this_game.getMap().getDoors().get(i).checkExit(this_game.getMap().getHero())){
+							game_state = 0;
+							System.out.println("You Win!");
+						}
+					}
+				}
+						
 				this_game.getMap().drawMap();
+						
 			}
-			else
+			else{
+				this_game.getMap().drawMap();
 				System.out.println("You can't go there...");
+			}
 			//restart
 		}
 
