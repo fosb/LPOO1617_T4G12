@@ -31,7 +31,6 @@ public class Character {
 	
 	public char checkDirection(){
 		
-		System.out.println("moveCharacter()");
 		//char c = (char) System.in.read();
 		Scanner in = new Scanner(System.in);
 		String move = null;
@@ -90,7 +89,6 @@ public class Character {
 	
 	public boolean canCharacterMove(char e){
 		
-		System.out.println("canCharacterMove()");
 		switch (e){
 		
 		case 'w':	if(g.getMapCoordinates(this.posx-1,this.posy) == "   " || 

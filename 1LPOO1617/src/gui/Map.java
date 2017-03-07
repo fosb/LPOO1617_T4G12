@@ -14,9 +14,10 @@ import character_subclasses.Wall;
 import logic.Character;
 
 public class Map {
-	
-	int type;
-	public Character[][] map = new Character[10][10];
+
+	private int type;
+	private int width;
+	public Character[][] map;
 	private Hero hero;
 	private Guard guard;
 	private Lever lever;
@@ -40,64 +41,34 @@ public class Map {
                   {" X ","   "," I ","   "," I ","   "," X "," k ","   "," X "},
                   {" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "}};
 		
+		String[][] map2 =
+				 {{" X "," X "," X "," X "," X "," X "," X "," X "," X "},
+				  {" I ","   ","   ","   "," O ","   ","   "," k "," X "},
+				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+				  {" X "," H ","   ","   ","   ","   ","   ","   "," X "},
+				  {" X "," X "," X "," X "," X "," X "," X "," X "," X "}};
+		
 		if(type == 1){
-			int i = 0;
-			while(i < 10){
-				int j = 0;
-				while(j < 10){
-					if(map1[i][j] == " H "){
-						Hero h = new Hero(game, i, j);
-						map[i][j] = h;
-						hero = h;
-					}
-					else if(map1[i][j] == " G "){
-						Guard g = new Guard(game, i, j);
-						map[i][j] = g;
-						guard = g;
-					}
-					else if(map1[i][j] == " O "){
-						Ogre o = new Ogre(game, i, j);
-						map[i][j] = o;
-					}
-					else if(map1[i][j] == " I "){
-						if(i == 0 || j == 0){
-							Door d = new Door(game, i, j, true);
-							map[i][j] = d;
-							doors.add(d);
-						}
-						else{
-							Door d = new Door(game, i, j);
-							map[i][j] = d;
-							doors.add(d);
-						}
-					}
-					else if(map1[i][j] == " X "){
-						Wall w = new Wall(game, i, j);
-						map[i][j] = w;
-					}
-					else if(map1[i][j] == " k "){
-						Lever k = new Lever(game, i, j);
-						map[i][j] = k;
-						lever = k;
-					}
-					else if(map1[i][j] == "   "){
-						Blank b = new Blank(game, i, j);
-						map[i][j] = b;
-					}
-					else
-						System.out.println("Error creating Level 1 Map!(Unrecognised Symbol in map1[]");
-					j++;
-				}
-				i++;
-			}
+			map = new Character[10][10];
+			this.width = 10;
+			this.convertMap(map1);
+		}
+		else if(type == 2){
+			map = new Character[9][9];
+			this.width = 9;
+			this.convertMap(map2);
 		}
 	}
 	public void drawMap(){
 		
 		int i = 0;
-		while(i < 10){
+		while(i < this.width){
 			int j = 0;
-			while(j < 10){
+			while(j < this.width){
 				System.out.print(map[i][j].symbol);
 				j++;
 			}
@@ -129,5 +100,68 @@ public class Map {
 	public ArrayList<Door> getDoors(){
 		
 		return this.doors;
+	}
+	
+	public int getType(){
+		
+		return this.type;
+	}
+	
+	private void convertMap(String[][] map){
+		
+		int i = 0;
+		while(i < this.width){
+			int j = 0;
+			while(j < this.width){
+				if(map[i][j] == " H "){
+					Hero h = new Hero(game, i, j);
+					this.map[i][j] = h;
+					hero = h;
+				}
+				else if(map[i][j] == " G "){
+					Guard g = new Guard(game, i, j);
+					this.map[i][j] = g;
+					guard = g;
+				}
+				else if(map[i][j] == " O "){
+					Ogre o = new Ogre(game, i, j);
+					this.map[i][j] = o;
+				}
+				else if(map[i][j] == " I "){
+					if(i == 0 || j == 0){
+						Door d = new Door(game, i, j, true);
+						this.map[i][j] = d;
+						doors.add(d);
+					}
+					else{
+						Door d = new Door(game, i, j);
+						this.map[i][j] = d;
+						doors.add(d);
+					}
+				}
+				else if(map[i][j] == " X "){
+					Wall w = new Wall(game, i, j);
+					this.map[i][j] = w;
+				}
+				else if(map[i][j] == " k "){
+					Lever k = new Lever(game, i, j);
+					this.map[i][j] = k;
+					lever = k;
+				}
+				else if(map[i][j] == "   "){
+					Blank b = new Blank(game, i, j);
+					this.map[i][j] = b;
+				}
+				else
+					System.out.println("Error creating Level " + this.type + " Map!(Unrecognised Symbol in map[]");
+				j++;
+			}
+			i++;
+		}
+	}
+	
+	public void setType(int type){
+		
+		this.type = type;
 	}
 }

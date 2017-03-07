@@ -6,24 +6,20 @@ import logic.Character;
 
 public class Game {
 	
-	public Map map;
+	private Map map;
 
 	public static void main(String args[]) throws IOException{
 		
 		int game_state = 1;
-		Game this_game = new Game();
+		Game this_game = new Game(1);
 		this_game.getMap().drawMap();
 		
 		while(game_state == 1){
 			//ask for user input
 			System.out.println("Enter a direction:");
-			//tries to move character
-			System.out.print(this_game.getMap().getHero().posx);
-			System.out.print(" ");
-			System.out.println(this_game.getMap().getHero().posy);
-			
+			//tries to move character			
+			if(this_game.getMap().getType() == 1){
 			if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
-				System.out.println("TEST BREAK 2");
 				this_game.getMap().getGuard().guardPatrol();
 				if(this_game.getMap().getGuard().checkForHero(this_game.getMap().getHero())){
 					System.out.println("The Guard caught you!");
@@ -42,8 +38,15 @@ public class Game {
 					for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
 						
 						if(this_game.getMap().getDoors().get(i).checkExit(this_game.getMap().getHero())){
-							game_state = 0;
 							System.out.println("You Win!");
+							this_game = new Game(2);
+							System.out.println();
+							System.out.println();
+							System.out.println();
+							System.out.println("And just when you thought your captivity had ended, you realise "
+									+"you still have another challenge to overcome...");
+							System.out.println("go through the Keep's Crazy Ogre.");
+							System.out.println();
 						}
 					}
 				}
@@ -51,18 +54,43 @@ public class Game {
 				this_game.getMap().drawMap();
 						
 			}
+			}
+			else if(this_game.getMap().getType() == 2){
+				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
+					
+					if(this_game.getMap().getLever().checkForHero(this_game.getMap().getHero())){
+						
+						for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
+							
+							this_game.getMap().getDoors().get(i).openDoors();
+							/*this.g.setMap(this.g.getMap().getDoors()[i].getPosX(), 
+									this.g.getMap().getDoors()[i].getPosY(), this.g.getMap().getDoors()[i]);*/
+						}
+					}
+					else{
+						for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
+							
+							if(this_game.getMap().getDoors().get(i).checkExit(this_game.getMap().getHero())){
+								game_state = 0;
+								System.out.println("You Win!");
+							}
+						}
+					}
+					this_game.getMap().drawMap();
+			}
 			else{
 				this_game.getMap().drawMap();
 				System.out.println("You can't go there...");
 			}
+			}	
 			//restart
 		}
 
 	}
 	
-	public Game(){
+	public Game(int level){
 		
-		map = new Map(this, 1);
+		map = new Map(this, level);
 	}
 	
 	public String getMapCoordinates(int x, int y){
