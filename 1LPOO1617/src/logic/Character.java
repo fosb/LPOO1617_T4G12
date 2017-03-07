@@ -29,7 +29,7 @@ public class Character {
 		return posy;
 	}
 	
-	public int moveCharacter() throws IOException{
+	public char checkDirection(){
 		
 		System.out.println("moveCharacter()");
 		//char c = (char) System.in.read();
@@ -39,6 +39,10 @@ public class Character {
 		
 		move = in.nextLine();
 		e = move.charAt(0);
+		return e;
+	}
+	
+	public int moveCharacter(char e) throws IOException{
 		
 		//char e = move.charAt(0);
 		

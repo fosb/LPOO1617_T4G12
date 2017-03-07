@@ -22,8 +22,9 @@ public class Game {
 			System.out.print(" ");
 			System.out.println(this_game.getMap().getHero().posy);
 			
-			if(this_game.getMap().getHero().moveCharacter() == 1){
+			if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
 				System.out.println("TEST BREAK 2");
+				this_game.getMap().getGuard().guardPatrol();
 				if(this_game.getMap().getGuard().checkForHero(this_game.getMap().getHero())){
 					System.out.println("The Guard caught you!");
 					game_state = 0;
