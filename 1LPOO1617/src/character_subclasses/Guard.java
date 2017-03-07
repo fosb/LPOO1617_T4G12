@@ -59,48 +59,4 @@ public class Guard extends Character{
 		else
 			this.i = 1;
 	}
-	
-	public int moveCharacter(char e) throws IOException{
-		
-		switch (e){
-		//UP
-		case 'w':	if(canCharacterMove(e)){
-			
-						Character chr = new Blank(g, posx, posy);
-						g.setMap(posx, posy, chr);
-						g.setMap(posx-1, posy, this);
-						posx--;
-						return 1;
-					}
-					break;
-		//DOWN			
-		case 's':	if(canCharacterMove(e)){
-						Character chr = new Blank(g, posx, posy);
-						g.setMap(posx, posy, chr);
-						g.setMap(posx+1, posy, this);
-						posx++;
-						return 1;
-					}
-					break;
-		//LEFT
-		case 'a':	if(canCharacterMove(e)){
-						Character chr = new Blank(g, posx, posy);
-						g.setMap(posx, posy, chr);
-						g.setMap(posx, posy-1, this);
-						posy--;
-						return 1;
-					}
-					break;
-		//RIGHT
-		case 'd':	if(canCharacterMove(e)){
-						Character chr = new Blank(g, posx, posy);
-						g.setMap(posx, posy, chr);
-						g.setMap(posx, posy+1, this);
-						posy++;
-						return 1;
-					}
-					break;
-		}
-		return 0;
-	}	
 }

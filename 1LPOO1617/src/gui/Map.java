@@ -20,6 +20,7 @@ public class Map {
 	public Character[][] map;
 	private Hero hero;
 	private Guard guard;
+	private Ogre ogre;
 	private Lever lever;
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	
@@ -126,6 +127,7 @@ public class Map {
 				else if(map[i][j] == " O "){
 					Ogre o = new Ogre(game, i, j);
 					this.map[i][j] = o;
+					ogre = o;
 				}
 				else if(map[i][j] == " I "){
 					if(i == 0 || j == 0){
@@ -163,5 +165,9 @@ public class Map {
 	public void setType(int type){
 		
 		this.type = type;
+	}
+	public Ogre getOgre() {
+		// TODO Auto-generated method stub
+		return this.ogre;
 	}
 }

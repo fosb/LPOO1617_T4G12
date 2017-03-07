@@ -11,7 +11,7 @@ public class Game {
 	public static void main(String args[]) throws IOException{
 		
 		int game_state = 1;
-		Game this_game = new Game(1);
+		Game this_game = new Game(2);
 		this_game.getMap().drawMap();
 		
 		while(game_state == 1){
@@ -57,8 +57,12 @@ public class Game {
 			}
 			else if(this_game.getMap().getType() == 2){
 				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
-					
-					if(this_game.getMap().getLever().checkForHero(this_game.getMap().getHero())){
+					this_game.getMap().getOgre().ogrePatrol();
+					if(this_game.getMap().getOgre().checkForHero(this_game.getMap().getHero())){
+						System.out.println("The Ogre caught you!");
+						game_state = 0;
+					}
+					else if(this_game.getMap().getLever().checkForHero(this_game.getMap().getHero())){
 						
 						for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
 							
