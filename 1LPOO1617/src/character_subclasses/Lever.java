@@ -5,6 +5,7 @@ import logic.Character;
 public class Lever extends Character{
 
 	private int xSave, ySave;
+	private boolean pickup = false;
 	
 	public Lever(Game g, int x, int y) {
 		
@@ -34,4 +35,24 @@ public class Lever extends Character{
 			return false;
 	}
 	
+	public boolean checkKey(Character chr){
+		
+		int x = chr.getPosX(), y = chr.getPosY();
+		
+		if(!this.pickup && Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0)			
+			return true;
+		else if(chr.getClass() == Ogre.class && !this.pickup &&(Math.abs(x-this.posx) == 1 && Math.abs(y-this.posy) == 0 ||
+				Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 1)){
+			
+			Character k = new Lever(this.g, this.xSave, this.ySave);
+			this.g.setMap(this.xSave, this.ySave, k);
+			return false;
+		}
+		else 
+			return false;
+	}
+
+	public void setPickup(){
+		this.pickup = true;
+	}
 }

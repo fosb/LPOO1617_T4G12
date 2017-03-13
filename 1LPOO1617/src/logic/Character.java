@@ -3,14 +3,16 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import character_subclasses.Blank;
+import character_subclasses.Door;
 import character_subclasses.Game;
 
 public class Character {
 	
 	//pode ser Hero Ogre Guard Wall Lever OpenDoor ClosedDoor Blank
-	public int posx, posy;
-	public Game g;
-	public String symbol;
+	protected int posx, posy;
+	protected Game g;
+	protected String symbol;
+	protected boolean skipTurn = false;
 	
 	public Character(Game game, int x, int y){
 		g = game;
@@ -29,7 +31,7 @@ public class Character {
 		return posy;
 	}
 	
-	public char checkDirection(){
+	public char checkDirection() throws StringIndexOutOfBoundsException{
 		
 		//char c = (char) System.in.read();
 		Scanner in = new Scanner(System.in);
@@ -37,7 +39,12 @@ public class Character {
 		char e = '\0';
 		
 		move = in.nextLine();
-		e = move.charAt(0);
+		try{
+			e = move.charAt(0);
+		}
+		catch(StringIndexOutOfBoundsException ola){
+			System.out.println("Please insert a valid direction!");
+		}
 		return e;
 	}
 	
@@ -73,6 +80,11 @@ public class Character {
 						posy--;
 						return 1;
 					}
+
+					else if(this.skipTurn){
+						this.skipTurn = false;
+						return 1;
+					}
 					break;
 		//RIGHT
 		case 'd':	if(canCharacterMove(e)){
@@ -93,28 +105,36 @@ public class Character {
 		
 		case 'w':	if(g.getMapCoordinates(this.posx-1,this.posy) == "   " || 
 						g.getMapCoordinates(this.posx-1,this.posy) == " k " ||
-						g.getMapCoordinates(this.posx-1,this.posy) == " S ")
+						g.getMapCoordinates(this.posx-1,this.posy) == " S " ||
+						g.getMapCoordinates(this.posx-1,this.posy) == " * ")
 						return true;
 					break;
 					
 		case 's':	if(g.getMapCoordinates(this.posx+1,this.posy) == "   " || 
 						g.getMapCoordinates(this.posx+1,this.posy) == " k " ||
-						g.getMapCoordinates(this.posx+1,this.posy) == " S ")
+						g.getMapCoordinates(this.posx+1,this.posy) == " S " ||
+						g.getMapCoordinates(this.posx+1,this.posy) == " * ")
 						return true;
 					break;
 		
 		case 'a':	if(g.getMapCoordinates(this.posx,this.posy-1) == "   " || 
 						g.getMapCoordinates(this.posx,this.posy-1) == " k " ||
-						g.getMapCoordinates(this.posx,this.posy-1) == " S ")
+						g.getMapCoordinates(this.posx,this.posy-1) == " S " ||
+						g.getMapCoordinates(this.posx,this.posy-1) == " * ")
 						return true;
+					else if(this.symbol == " K " && g.getMapCoordinates(this.posx,this.posy-1) == " I "){
+						this.g.getMap().getDoors().get(0).setSymbol(" S ");
+						this.skipTurn = true;
+					}
 					break;
 			
 		case 'd':	if(g.getMapCoordinates(this.posx,this.posy+1) == "   " || 
 						g.getMapCoordinates(this.posx,this.posy+1) == " k " ||
-						g.getMapCoordinates(this.posx,this.posy+1) == " S "){
+						g.getMapCoordinates(this.posx,this.posy+1) == " S " ||
+						g.getMapCoordinates(this.posx,this.posy+1) == " * ")
 						return true;
-		}
-					break;
+		
+		break;
 		}
 		
 		return false;
@@ -128,6 +148,20 @@ public class Character {
 	public String getSymbol(){
 		
 		return this.symbol;
+	}
+
+	public void setSymbol(String string) {
+		// TODO Auto-generated method stub
+		
+		this.symbol = string;
+	}
+	
+	public void setPosX(int x){
+		this.posx = x;
+	}
+	
+	public void setPosY(int y){
+		this.posy = y;
 	}
 	
 	/*public void setSymbol(String s){

@@ -5,7 +5,7 @@ import logic.Character;
 public class Door extends Character{
 
 	
-	Boolean is_exit_door = false;
+	private Boolean is_exit_door = false;
 	
 	public Door(Game g, int x, int y) {
 		
@@ -34,12 +34,9 @@ public class Door extends Character{
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		
-		if(Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0 && this.is_exit_door && this.symbol == " S "){
-			
+		if(Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0 && this.is_exit_door && this.symbol == " S ")
 			return true;
-		}
 		else
 			return false;
 	}
-	
 }

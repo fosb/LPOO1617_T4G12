@@ -7,7 +7,8 @@ import logic.Character;
 public class Game {
 	
 	private Map map;
-
+	private int game_level = 0;
+	
 	public static void main(String args[]) throws IOException{
 		
 		int game_state = 1;
@@ -55,21 +56,19 @@ public class Game {
 						
 			}
 			}
-			else if(this_game.getMap().getType() == 2){
+			else if(this_game.getMap().getType() == 2){	//Level 2
 				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
 					this_game.getMap().getOgre().ogrePatrol();
+					this_game.getMap().getOgre().checkForKey(this_game.getMap().getLever());
+					this_game.getMap().getOgre().getClub().checkForKey(this_game.getMap().getLever());
+					this_game.getMap().getHero().checkForKey(this_game.getMap().getLever());
 					if(this_game.getMap().getOgre().checkForHero(this_game.getMap().getHero())){
 						System.out.println("The Ogre caught you!");
 						game_state = 0;
 					}
-					else if(this_game.getMap().getLever().checkForHero(this_game.getMap().getHero())){
-						
-						for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
-							
-							this_game.getMap().getDoors().get(i).openDoors();
-							/*this.g.setMap(this.g.getMap().getDoors()[i].getPosX(), 
-									this.g.getMap().getDoors()[i].getPosY(), this.g.getMap().getDoors()[i]);*/
-						}
+					else if(this_game.getMap().getOgre().getClub().checkForHero(this_game.getMap().getHero())){
+						System.out.println("The Club hit you!");
+						game_state = 0;
 					}
 					else{
 						for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
@@ -78,23 +77,24 @@ public class Game {
 								game_state = 0;
 								System.out.println("You Win!");
 							}
+							
 						}
 					}
 					this_game.getMap().drawMap();
-			}
-			else{
-				this_game.getMap().drawMap();
-				System.out.println("You can't go there...");
-			}
+				}
+				else{
+					this_game.getMap().drawMap();
+					System.out.println("You can't go there...");
+				}
 			}	
 			//restart
 		}
-
 	}
-	
+
 	public Game(int level){
 		
 		map = new Map(this, level);
+		this.game_level = level;
 	}
 	
 	public String getMapCoordinates(int x, int y){
@@ -112,24 +112,9 @@ public class Game {
 		
 		this.getMap().map[posx][posy] = chr;
 	}
-	/*
-	public void setMapEmpty(int x, int y){
-		
-		map[x][y] = "   ";
-  	}
 	
-	public void updateMap(Character c, int direction){
+	public int getLevel(){
 		
-		
-		int next_posx = c.returnPosX();
-		int next_posy = c.returnPosY();
-		
-		if(direction == 1){
-			setMapEmpty(next_posx + 1, next_posy);
-		}
-		else if(direction == 2){
-			
-		}
-		
-	}*/
+		return this.game_level;
+	}
 }

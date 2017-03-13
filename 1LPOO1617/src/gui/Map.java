@@ -70,7 +70,7 @@ public class Map {
 		while(i < this.width){
 			int j = 0;
 			while(j < this.width){
-				System.out.print(map[i][j].symbol);
+				System.out.print(map[i][j].getSymbol());
 				j++;
 			}
 			System.out.println();
@@ -91,11 +91,6 @@ public class Map {
 	public Guard getGuard(){
 		
 		return this.guard;
-	}
-	
-	public Lever getLever(){
-		
-		return this.lever;
 	}
 	
 	public ArrayList<Door> getDoors(){
@@ -125,7 +120,7 @@ public class Map {
 					guard = g;
 				}
 				else if(map[i][j] == " O "){
-					Ogre o = new Ogre(game, i, j);
+					Ogre o = new Ogre(game, i, j, true);
 					this.map[i][j] = o;
 					ogre = o;
 				}
@@ -169,5 +164,10 @@ public class Map {
 	public Ogre getOgre() {
 		// TODO Auto-generated method stub
 		return this.ogre;
+	}
+	
+	public Lever getLever() {
+		// TODO Auto-generated method stub
+		return this.lever;
 	}
 }
