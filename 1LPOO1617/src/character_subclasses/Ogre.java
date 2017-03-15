@@ -12,14 +12,14 @@ public class Ogre extends Character{
 	private Random randomGen = new Random();
 	private Club club;
 	
-	public Ogre(Game g, int x, int y) {
+	public Ogre(Game g, int x, int y) {// Basic Constructor
 		
 		super(g, x, y);
 		
 		this.symbol = " O "; // O - Normal, $ - Guarding Key
 	}
 	
-	public Ogre(Game g, int x, int y, boolean club) {
+	public Ogre(Game g, int x, int y, boolean club) {//Constructor Ogres with a Club
 		
 		super(g, x, y);
 		
@@ -31,7 +31,7 @@ public class Ogre extends Character{
 		this.symbol = " O "; // O - Normal, $ - Guarding Key
 	}
 
-	public boolean checkForHero(Character hero){
+	public boolean checkForHero(Character hero){// Checks Hero's distance to the Ogre: TRUE if in adjacent tile
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		
@@ -42,7 +42,7 @@ public class Ogre extends Character{
 			return false;
 	}
 	
-	public void ogrePatrol() throws IOException{
+	public void ogrePatrol() throws IOException{// Moves Ogre in a random valid direction(UP, DOWN, LEFT or RIGHT)
 		
 		this.club.clearClub();
 		int randomNum;
@@ -73,7 +73,7 @@ public class Ogre extends Character{
 		}
 	}
 	
-	public void checkForKey(Lever key){
+	public void checkForKey(Lever key){// Changes Ogre to "guarding the key"(" $ ") if on top of it
 		
 		if(key.checkKey(this))
 			this.symbol = " $ ";

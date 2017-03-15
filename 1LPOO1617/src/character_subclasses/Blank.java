@@ -5,7 +5,7 @@ import logic.Game;
 
 public class Blank extends Character{
 
-	public Blank(Game g, int x, int y) {
+	public Blank(Game g, int x, int y) {// Basic Constructor
 		
 		super(g, x, y);
 		

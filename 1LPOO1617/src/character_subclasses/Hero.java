@@ -9,7 +9,7 @@ public class Hero extends Character{
 	Boolean armed = false;
 	int savex = 0, savey = 0;
 	
-	public Hero(Game g, int x, int y) {
+	public Hero(Game g, int x, int y) {// Basic Constructor
 		
 		super(g, x, y);
 		
@@ -17,7 +17,7 @@ public class Hero extends Character{
 	}
 
 	
-	public Hero(Game g, int x, int y, Boolean arm) {
+	public Hero(Game g, int x, int y, Boolean arm) {// Constructor for Armed Hero
 		
 		super(g, x, y);
 		
@@ -27,16 +27,15 @@ public class Hero extends Character{
 			this.symbol = " H ";
 	}
 
-	public void checkForKey(Lever key){
-		
-		if(this.armed){
+	public void checkForKey(Lever key){// Checks Hero's distance to the Key, "Picks up Key" if ON it 
+									   // Updates Map accordingly
+		if(key.getPickup()){
 			Character blank = new Blank(this.g, this.savex, this.savey);
 			this.g.setMap(key.getPosX(), key.getPosY(), blank);
 			this.armed = false;
 		}
 		else if(key.checkKey(this)){
 			this.symbol = " K ";
-			this.armed = true;
 			key.setPickup();
 		}
 		else

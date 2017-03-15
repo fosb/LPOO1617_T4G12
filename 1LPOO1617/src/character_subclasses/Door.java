@@ -4,11 +4,10 @@ import logic.Character;
 import logic.Game;
 
 public class Door extends Character{
-
 	
 	private Boolean is_exit_door = false;
 	
-	public Door(Game g, int x, int y) {
+	public Door(Game g, int x, int y) {// Basic Constructor
 		
 		super(g, x, y);
 		
@@ -16,7 +15,7 @@ public class Door extends Character{
 	}
 
 	
-	public Door(Game g, int x, int y, Boolean exit) {
+	public Door(Game g, int x, int y, Boolean exit) {// Constructor for Exit Doors according to the Level
 		
 		super(g, x, y);
 		
@@ -26,12 +25,12 @@ public class Door extends Character{
 		this.symbol = " I ";
 	}
 
-	public void openDoors(){
+	public void openDoors(){// Updates Doors to "open"(" S ")
 		
 		this.symbol = " S ";
 	}
 	
-	public boolean checkExit(Character hero){
+	public boolean checkExit(Character hero){// Checks if Hero is ON an Exit Door
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		

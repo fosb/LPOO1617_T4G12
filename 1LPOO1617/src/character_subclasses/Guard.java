@@ -14,7 +14,7 @@ public class Guard extends Character{
 	private Random randomGen = new Random();
 	private String personality;
 	
-	public Guard(Game g, int x, int y) {
+	public Guard(Game g, int x, int y) {// Basic Constructor, sets random Personality of the Guard
 		
 		super(g, x, y);
 		
@@ -35,8 +35,8 @@ public class Guard extends Character{
 		}
 	}
 	
-	public boolean checkForHero(Character hero){
-		
+	public boolean checkForHero(Character hero){// Checks Hero's distance to the Guard: TRUE if adjacent
+												// Ignores if Guard is "Passed out"(" g ")
 		int x = hero.getPosX(), y = hero.getPosY();
 		
 		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1 && this.symbol != " g ")
@@ -46,13 +46,13 @@ public class Guard extends Character{
 			return false;
 	}
 	
-	private void checkPersonality(){
-		if(this.personality == "Rookie"){
+	private void checkPersonality(){// Updates Guard's attributes according to it's personality
+		if(this.personality == "Rookie"){				// Rookie: No special attributes
 			
 		}
-		else if(this.personality == "Drunken"){
-			int randomNum = randomGen.nextInt(6) + 1;
-			
+		else if(this.personality == "Drunken"){			// Drunken: 1/6 chance to "Pass out"(stun) for 2 turns,
+			int randomNum = randomGen.nextInt(6) + 1;	// 			Decrements "stun timer" every turn, 50% chance
+														//          to reverse patrol pattern when "Waking up"
 			if(this.stun != 0){
 				this.stun--;
 				if(this.stun == 0)
@@ -64,10 +64,10 @@ public class Guard extends Character{
 			}		
 			if(randomNum == 6){
 				this.symbol = " g ";
-				this.stun = 2;
+				this.stun = 3;
 			}
 		}
-		else if(this.personality == "Suspicious"){
+		else if(this.personality == "Suspicious"){// Suspicious: 25% chance to reverse patrol pattern every turn
 			int randomNum = randomGen.nextInt(4) + 1;
 			
 			if(randomNum == 1){
@@ -77,8 +77,8 @@ public class Guard extends Character{
 		}
 	}
 	
-	public void guardPatrol() throws IOException{
-		this.checkPersonality();
+	public void guardPatrol() throws IOException{// Moves Guard according to it's patrol pattern & Personality's
+		this.checkPersonality();				 // attributes
 		if(!this.reverse && this.stun == 0){
 			if(this.i < 25){
 				if(i == 1){

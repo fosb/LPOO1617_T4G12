@@ -9,12 +9,12 @@ public class Club extends Character{
 
 	private Random randomGen = new Random();
 	
-	public Club(Game g, int x, int y){
+	public Club(Game g, int x, int y){// Basic Constructor
 		
 		super(g, x, y);
 	}
 	
-	public void checkForKey(Lever key){
+	public void checkForKey(Lever key){// Changes Club to "guarding the key"(" $ ") if on top of it
 		
 		if(key.checkKey(this))
 			this.symbol = " $ ";
@@ -22,7 +22,7 @@ public class Club extends Character{
 			this.symbol = " * ";
 	}
 	
-	public boolean checkForHero(Character hero){
+	public boolean checkForHero(Character hero){// Checks Hero's distance to the Club: TRUE if in adjacent tile
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		
@@ -33,12 +33,12 @@ public class Club extends Character{
 			return false;
 	}
 	
-	public void clearClub(){
+	public void clearClub(){// Removes Club's symbol from the Map
 		Character blank = new Blank(this.g, this.posx, this.posy);
 		g.setMap(this.posx, this.posy, blank);
 	}
 	
-	public void swingClub(Ogre ogre){
+	public void swingClub(Ogre ogre){// Places Club in a random valid tile adjacent to the Ogre
 		int randomNum ;
 		
 		while(true){

@@ -7,13 +7,13 @@ import logic.Game;
 
 public class Character {
 	
-	//pode ser Hero Ogre Guard Wall Lever OpenDoor ClosedDoor Blank
+	//Subclasses: Hero Ogre Guard Wall Lever OpenDoor ClosedDoor Blank
 	protected int posx, posy;
 	protected Game g;
 	protected String symbol;
 	protected boolean skipTurn = false;
 	
-	public Character(Game game, int x, int y){
+	public Character(Game game, int x, int y){// Basic Constructor
 		g = game;
 		posx = x;
 		posy = y;
@@ -30,9 +30,8 @@ public class Character {
 		return posy;
 	}
 	
-	public char checkDirection() throws StringIndexOutOfBoundsException{
+	public char checkDirection() throws StringIndexOutOfBoundsException{//Scans User input for movement direction
 		
-		//char c = (char) System.in.read();
 		Scanner in = new Scanner(System.in);
 		String move = null;
 		char e = '\0';
@@ -47,9 +46,7 @@ public class Character {
 		return e;
 	}
 	
-	public int moveCharacter(char e) throws IOException{
-		
-		//char e = move.charAt(0);
+	public int moveCharacter(char e) throws IOException{// Moves the Character and updates Map accordingly
 		
 		switch (e){
 		//UP
@@ -98,7 +95,7 @@ public class Character {
 		return 0;
 	}
 	
-	public boolean canCharacterMove(char e){
+	public boolean canCharacterMove(char e){// Checks if there are no obstacles in the way of the movement
 		
 		switch (e){
 		

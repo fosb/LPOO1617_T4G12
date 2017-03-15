@@ -25,7 +25,7 @@ public class Map {
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	private Game game;
 	
-	public Map(Game game, int type){
+	public Map(Game game, int type){// Basic Constructor, type = Level #
 		this.type = type;
 		this.game = game;
 		
@@ -63,7 +63,7 @@ public class Map {
 			this.convertMap(map2);
 		}
 	}
-	public void drawMap(){
+	public void drawMap(){// Draws the current game Map
 		
 		int i = 0;
 		while(i < this.width){
@@ -102,7 +102,7 @@ public class Map {
 		return this.type;
 	}
 	
-	private void convertMap(String[][] map){
+	private void convertMap(String[][] map){// Fills Character's Map with respective positions and characteristics
 		
 		int i = 0;
 		while(i < this.width){

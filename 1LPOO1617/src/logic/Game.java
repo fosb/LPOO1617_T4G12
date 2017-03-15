@@ -91,7 +91,7 @@ public class Game {
 		}
 	}
 
-	public Game(int level){
+	public Game(int level){// Basic Constructor
 		
 		map = new Map(this, level);
 		this.game_level = level;
