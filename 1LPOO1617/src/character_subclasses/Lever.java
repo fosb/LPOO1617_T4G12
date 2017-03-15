@@ -1,11 +1,13 @@
 package character_subclasses;
 
 import logic.Character;
+import logic.Game;
 
 public class Lever extends Character{
 
 	private int xSave, ySave;
 	private boolean pickup = false;
+	private boolean guarded = false;
 	
 	public Lever(Game g, int x, int y) {
 		
@@ -39,9 +41,11 @@ public class Lever extends Character{
 		
 		int x = chr.getPosX(), y = chr.getPosY();
 		
-		if(!this.pickup && Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0)			
+		if(!this.pickup && Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0){			
+			this.guarded = true;
 			return true;
-		else if(chr.getClass() == Ogre.class && !this.pickup &&(Math.abs(x-this.posx) == 1 && Math.abs(y-this.posy) == 0 ||
+		}
+		else if(!this.guarded && (chr.getClass() == Ogre.class || chr.getClass() == Club.class) && !this.pickup &&(Math.abs(x-this.posx) == 1 && Math.abs(y-this.posy) == 0 ||
 				Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 1)){
 			
 			Character k = new Lever(this.g, this.xSave, this.ySave);
@@ -54,5 +58,9 @@ public class Lever extends Character{
 
 	public void setPickup(){
 		this.pickup = true;
+	}
+	
+	public void setGuarded(){
+		this.guarded = false;
 	}
 }

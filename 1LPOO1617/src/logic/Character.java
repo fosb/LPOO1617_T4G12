@@ -3,8 +3,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import character_subclasses.Blank;
-import character_subclasses.Door;
-import character_subclasses.Game;
+import logic.Game;
 
 public class Character {
 	
@@ -150,9 +149,7 @@ public class Character {
 		return this.symbol;
 	}
 
-	public void setSymbol(String string) {
-		// TODO Auto-generated method stub
-		
+	public void setSymbol(String string) {		
 		this.symbol = string;
 	}
 	

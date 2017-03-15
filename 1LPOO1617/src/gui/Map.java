@@ -1,7 +1,8 @@
 package gui;
 
-import character_subclasses.Game;
 import character_subclasses.Hero;
+import logic.Character;
+import logic.Game;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,6 @@ import character_subclasses.Guard;
 import character_subclasses.Lever;
 import character_subclasses.Ogre;
 import character_subclasses.Wall;
-import logic.Character;
 
 public class Map {
 
@@ -23,8 +23,7 @@ public class Map {
 	private Ogre ogre;
 	private Lever lever;
 	private ArrayList<Door> doors = new ArrayList<Door>();
-	
-	Game game;
+	private Game game;
 	
 	public Map(Game game, int type){
 		this.type = type;

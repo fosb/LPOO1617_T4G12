@@ -1,6 +1,7 @@
 package character_subclasses;
 
 import logic.Character;
+import logic.Game;
 
 public class Door extends Character{
 

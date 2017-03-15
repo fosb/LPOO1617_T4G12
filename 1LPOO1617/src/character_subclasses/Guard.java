@@ -2,6 +2,8 @@ package character_subclasses;
 
 import java.io.IOException;
 
+import logic.Game;
+
 import logic.Character;
 
 public class Guard extends Character{

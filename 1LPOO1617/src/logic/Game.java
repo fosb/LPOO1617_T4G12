@@ -1,4 +1,4 @@
-package character_subclasses;
+package logic;
 import java.io.IOException;
 
 import gui.Map;
@@ -57,9 +57,11 @@ public class Game {
 			}
 			}
 			else if(this_game.getMap().getType() == 2){	//Level 2
+				this_game.getMap().getLever().setGuarded();
 				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
 					this_game.getMap().getOgre().ogrePatrol();
 					this_game.getMap().getOgre().checkForKey(this_game.getMap().getLever());
+					this_game.getMap().getOgre().getClub().swingClub(this_game.getMap().getOgre());
 					this_game.getMap().getOgre().getClub().checkForKey(this_game.getMap().getLever());
 					this_game.getMap().getHero().checkForKey(this_game.getMap().getLever());
 					if(this_game.getMap().getOgre().checkForHero(this_game.getMap().getHero())){
