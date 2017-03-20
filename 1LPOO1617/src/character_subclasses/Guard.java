@@ -35,15 +35,14 @@ public class Guard extends Character{
 		}
 	}
 	
-	public boolean checkForHero(Character hero){// Checks Hero's distance to the Guard: TRUE if adjacent
+	public void checkForHero(Character hero){// Checks Hero's distance to the Guard: TRUE if adjacent
 												// Ignores if Guard is "Passed out"(" g ")
 		int x = hero.getPosX(), y = hero.getPosY();
 		
-		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1 && this.symbol != " g ")
-			return true;
-		
-		else
-			return false;
+		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1 && this.symbol != " g "){
+			System.out.println("The Guard caught you!");
+			this.g.setState(0);
+		}
 	}
 	
 	private void checkPersonality(){// Updates Guard's attributes according to it's personality

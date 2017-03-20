@@ -119,7 +119,7 @@ public class Character {
 						g.getMapCoordinates(this.posx,this.posy-1) == " * ")
 						return true;
 					else if(this.symbol == " K " && g.getMapCoordinates(this.posx,this.posy-1) == " I "){
-						this.g.getMap().getDoors().get(0).setSymbol(" S ");
+						this.g.getMap().getCharacter(this.posx, this.posy-1).setSymbol(" S ");
 						this.skipTurn = true;
 					}
 					break;

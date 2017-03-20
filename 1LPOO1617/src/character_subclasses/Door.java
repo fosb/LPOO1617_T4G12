@@ -30,13 +30,23 @@ public class Door extends Character{
 		this.symbol = " S ";
 	}
 	
-	public boolean checkExit(Character hero){// Checks if Hero is ON an Exit Door
+	public void checkExit(Character hero){// Checks if Hero is ON an Exit Door
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		
-		if(Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0 && this.is_exit_door && this.symbol == " S ")
-			return true;
-		else
-			return false;
+		for(int i = 0; i < this.g.getMap().getDoors().size(); i++){
+			
+			if(Math.abs(x-this.g.getMap().getDoors().get(i).getPosX()) == 0 
+				&& Math.abs(y-this.g.getMap().getDoors().get(i).getPosY()) == 0 
+				&& this.g.getMap().getDoors().get(i).getIsExit()
+				&& this.g.getMap().getDoors().get(i).getSymbol() == " S "){
+				
+				this.g.setLevel(2);
+			}
+		}
+	}
+	
+	public boolean getIsExit(){
+		return this.is_exit_door;
 	}
 }

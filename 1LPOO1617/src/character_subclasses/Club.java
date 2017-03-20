@@ -22,15 +22,14 @@ public class Club extends Character{
 			this.symbol = " * ";
 	}
 	
-	public boolean checkForHero(Character hero){// Checks Hero's distance to the Club: TRUE if in adjacent tile
+	public void checkForHero(Character hero){// Checks Hero's distance to the Ogre: TRUE if in adjacent tile
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		
-		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1)
-			return true;
-		
-		else
-			return false;
+		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1){
+			System.out.println("The Club hit you!");
+			this.g.setState(0);
+		}
 	}
 	
 	public void clearClub(){// Removes Club's symbol from the Map

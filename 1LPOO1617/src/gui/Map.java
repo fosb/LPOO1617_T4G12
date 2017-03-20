@@ -52,6 +52,20 @@ public class Map {
 				  {" X "," H ","   ","   ","   ","   ","   ","   "," X "},
 				  {" X "," X "," X "," X "," X "," X "," X "," X "," X "}};
 		
+		String[][] mapTeste1 =
+				 {{" X "," X "," X "," X "," X "},
+				  {" X "," H ","   "," G "," X "},
+				  {" I ","   ","   ","   "," X "},
+				  {" I "," k ","   ","   "," X "},
+				  {" X "," X "," X "," X "," X "}};
+		
+		String[][] mapTeste2 =
+			 {{" X "," X "," X "," X "," X "},
+			  {" X "," H ","   "," O "," X "},
+			  {" I ","   ","   ","   "," X "},
+			  {" I "," k ","   ","   "," X "},
+			  {" X "," X "," X "," X "," X "}};
+		
 		if(type == 1){
 			map = new Character[10][10];
 			this.width = 10;
@@ -61,6 +75,16 @@ public class Map {
 			map = new Character[9][9];
 			this.width = 9;
 			this.convertMap(map2);
+		}
+		else if(type == 3){
+			map = new Character[5][5];
+			this.width = 5;
+			this.convertMap(mapTeste1);
+		}
+		else if(type == 4){
+			map = new Character[5][5];
+			this.width = 5;
+			this.convertMap(mapTeste2);
 		}
 	}
 	public void drawMap(){// Draws the current game Map

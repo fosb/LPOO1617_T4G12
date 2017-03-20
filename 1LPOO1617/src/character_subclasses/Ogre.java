@@ -9,6 +9,7 @@ import logic.Character;
 
 public class Ogre extends Character{
 
+	public int randomNum;
 	private Random randomGen = new Random();
 	private Club club;
 	
@@ -31,21 +32,19 @@ public class Ogre extends Character{
 		this.symbol = " O "; // O - Normal, $ - Guarding Key
 	}
 
-	public boolean checkForHero(Character hero){// Checks Hero's distance to the Ogre: TRUE if in adjacent tile
+	public void checkForHero(Character hero){// Checks Hero's distance to the Ogre: TRUE if in adjacent tile
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		
-		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1)
-			return true;
-		
-		else
-			return false;
+		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1){
+			System.out.println("The Ogre caught you!");
+			this.g.setState(0);
+		}
 	}
 	
 	public void ogrePatrol() throws IOException{// Moves Ogre in a random valid direction(UP, DOWN, LEFT or RIGHT)
 		
 		this.club.clearClub();
-		int randomNum;
 		
 		while(true){
 			randomNum = randomGen.nextInt(4) + 1;

@@ -8,53 +8,31 @@ public class Game {
 	
 	private Map map;
 	private int game_level = 0;
+	private int game_state = 0;
 	
 	public static void main(String args[]) throws IOException{
 		
-		int game_state = 1;
 		Game this_game = new Game(1);
 		this_game.getMap().drawMap();
 		
-		while(game_state == 1){
+		while(this_game.game_state == 1){
 			//ask for user input
 			System.out.println("Enter a direction:");
 			//tries to move character			
-			if(this_game.getMap().getType() == 1){ //Level 1
-			if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
-				this_game.getMap().getGuard().guardPatrol();
-				if(this_game.getMap().getGuard().checkForHero(this_game.getMap().getHero())){
-					System.out.println("The Guard caught you!");
-					game_state = 0;
+			if(this_game.game_level == 1){ //Level 1
+				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
+					this_game.getMap().getGuard().guardPatrol();
+					this_game.getMap().getGuard().checkForHero(this_game.getMap().getHero());
+					this_game.getMap().getLever().checkForHero(this_game.getMap().getHero());
+					this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero());
+					this_game.checkState();
 				}
-				else if(this_game.getMap().getLever().checkForHero(this_game.getMap().getHero())){
-					
-					for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
-						
-						this_game.getMap().getDoors().get(i).openDoors();
-						/*this.g.setMap(this.g.getMap().getDoors()[i].getPosX(), 
-								this.g.getMap().getDoors()[i].getPosY(), this.g.getMap().getDoors()[i]);*/
-					}
-				}
-				else{
-					for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
-						
-						if(this_game.getMap().getDoors().get(i).checkExit(this_game.getMap().getHero())){
-							System.out.println("You Win! Level 1 Completed!");
-							this_game = new Game(2);
-							System.out.println();
-							System.out.println("And just when you thought your captivity had ended, you realise "
-									+"you still have another challenge to overcome...");
-							System.out.println("go through the Keep's Crazy Ogre(O). Don't forget he uses a Massive Club(*)!");
-							System.out.println();
-						}
-					}
-				}
-						
+				else
+					System.out.println("You can't go there...");
+				
 				this_game.getMap().drawMap();
-						
 			}
-			}
-			else if(this_game.getMap().getType() == 2){	//Level 2
+			else if(this_game.game_level == 2){	//Level 2
 				this_game.getMap().getLever().setGuarded();
 				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
 					this_game.getMap().getOgre().ogrePatrol();
@@ -62,31 +40,16 @@ public class Game {
 					this_game.getMap().getOgre().getClub().swingClub(this_game.getMap().getOgre());
 					this_game.getMap().getOgre().getClub().checkForKey(this_game.getMap().getLever());
 					this_game.getMap().getHero().checkForKey(this_game.getMap().getLever());
-					if(this_game.getMap().getOgre().checkForHero(this_game.getMap().getHero())){
-						System.out.println("The Ogre caught you!");
-						game_state = 0;
-					}
-					else if(this_game.getMap().getOgre().getClub().checkForHero(this_game.getMap().getHero())){
-						System.out.println("The Club hit you!");
-						game_state = 0;
-					}
-					else{
-						for(int i = 0; i < this_game.getMap().getDoors().size(); i++){
-							
-							if(this_game.getMap().getDoors().get(i).checkExit(this_game.getMap().getHero())){
-								game_state = 0;
-								System.out.println("You Win! Level 2 Completed!");
-							}
-							
-						}
-					}
-					this_game.getMap().drawMap();
+					this_game.getMap().getOgre().checkForHero(this_game.getMap().getHero());
+					this_game.getMap().getOgre().getClub().checkForHero(this_game.getMap().getHero());
+					this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero());
+					this_game.checkState();
 				}
-				else{
-					this_game.getMap().drawMap();
+				else
 					System.out.println("You can't go there...");
-				}
-			}	
+				
+				this_game.getMap().drawMap();
+			}
 			//restart
 		}
 	}
@@ -94,6 +57,7 @@ public class Game {
 	public Game(int level){// Basic Constructor
 		
 		map = new Map(this, level);
+		this.game_state = 1;
 		this.game_level = level;
 	}
 	
@@ -116,5 +80,32 @@ public class Game {
 	public int getLevel(){
 		
 		return this.game_level;
+	}
+	
+	public int getState(){
+		return this.game_state;
+	}
+	
+	public void setState(int x){
+		this.game_state = x;
+	}
+	
+	private void checkState(){
+		if(this.game_state == 0){
+			System.out.println("Game Over...");
+		}
+		else if(this.game_level == 2){
+			System.out.println("You Win! Level 1 Completed!");
+			System.out.println();
+			System.out.println("And just when you thought your captivity had ended, you realise "
+					+"you still have another challenge to overcome...");
+			System.out.println("go through the Keep's Crazy Ogre(O). Don't forget he uses a Massive Club(*)!");
+			System.out.println();
+			this.getMap().drawMap();
+		}
+	}
+	
+	public void setLevel(int x){
+		this.game_level = x;
 	}
 }

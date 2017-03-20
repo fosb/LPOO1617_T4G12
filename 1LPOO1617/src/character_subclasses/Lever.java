@@ -18,23 +18,22 @@ public class Lever extends Character{
 		this.symbol = " k "; // O - Normal, $ - Guarding Key
 	}
 
-	public boolean checkForHero(Character hero){  // Checks Hero's distance to the Lever:
-												    // TRUE if ON the Lever
-		int x = hero.getPosX(), y = hero.getPosY(); // FALSE if adjacent(updates Map to ensure Lever doesn't vanish
-													// FALSE if distant
+	public void checkForHero(Character hero){  
+												    
+		int x = hero.getPosX(), y = hero.getPosY(); 
+													
 		if(Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0){
-		
-			return true;
+			for(int i = 0; i < this.g.getMap().getDoors().size(); i++){
+				
+				this.g.getMap().getDoors().get(i).openDoors();
+			}
 		}
 		else if(Math.abs(x-this.posx) == 1 && Math.abs(y-this.posy) == 0 ||
 				Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 1){
 			
 			Character k = new Lever(this.g, this.xSave, this.ySave);
 			this.g.setMap(this.xSave, this.ySave, k);
-			return false;
 		}
-		else
-			return false;
 	}
 	
 	public boolean checkKey(Character chr){// Checks for chr distance to the Key:
