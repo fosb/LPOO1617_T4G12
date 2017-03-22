@@ -31,6 +31,7 @@ public class Ogre extends Character{
 		
 		this.symbol = " O "; // O - Normal, $ - Guarding Key
 	}
+	
 
 	public void checkForHero(Character hero){// Checks Hero's distance to the Ogre: TRUE if in adjacent tile
 		

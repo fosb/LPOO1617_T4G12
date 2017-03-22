@@ -10,14 +10,14 @@ import logic.Game;
 
 public class TestLevel2GameLogic {
 
-	@Test
+	/*@Test
 	public void testHeroNextToOgre() throws IOException{
 		Game this_game = new Game(4);
 		assertEquals(this_game.getMap().getCharacter(1, 1), this_game.getMap().getHero());
 		this_game.getMap().getHero().moveCharacter('d');
 		this_game.getMap().getOgre().checkForHero(this_game.getMap().getHero());
 		assertEquals(0, this_game.getState());
-	}
+	}*/
 	@Test
 	public void testHeroGrabsKey() throws IOException{
 		Game this_game = new Game(4);

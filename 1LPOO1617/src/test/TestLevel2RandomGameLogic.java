@@ -10,7 +10,7 @@ import logic.Game;
 
 public class TestLevel2RandomGameLogic {
 
-	@Test
+	/*@Test
 	public void testOgreRandomMovement() throws IOException{
 		Game this_game = new Game(2);
 		int i, w = 0, a = 0, s = 0, d = 0, desvio = -1;
@@ -40,5 +40,5 @@ public class TestLevel2RandomGameLogic {
 		System.out.println(desvio);
 		
 		assertEquals(desvio >= 0 && desvio <= 25, true);
-	}
+	}*/
 }

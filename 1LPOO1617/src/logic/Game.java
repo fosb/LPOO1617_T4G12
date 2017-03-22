@@ -12,13 +12,13 @@ public class Game {
 	
 	public static void main(String args[]) throws IOException{
 		
-		Game this_game = new Game(1);
+		Game this_game = new Game(2);
 		this_game.getMap().drawMap();
 		
 		while(this_game.game_state == 1){
 			//ask for user input
 			System.out.println("Enter a direction:");
-			//tries to move character			
+			//tries to move character	
 			if(this_game.game_level == 1){ //Level 1
 				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
 					this_game.getMap().getGuard().guardPatrol();
@@ -35,15 +35,18 @@ public class Game {
 			else if(this_game.game_level == 2){	//Level 2
 				this_game.getMap().getLever().setGuarded();
 				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
-					this_game.getMap().getOgre().ogrePatrol();
-					this_game.getMap().getOgre().checkForKey(this_game.getMap().getLever());
-					this_game.getMap().getOgre().getClub().swingClub(this_game.getMap().getOgre());
-					this_game.getMap().getOgre().getClub().checkForKey(this_game.getMap().getLever());
-					this_game.getMap().getHero().checkForKey(this_game.getMap().getLever());
-					this_game.getMap().getOgre().checkForHero(this_game.getMap().getHero());
-					this_game.getMap().getOgre().getClub().checkForHero(this_game.getMap().getHero());
-					this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero());
-					this_game.checkState();
+					for(int i = 1; i < this_game.getMap().getOgres().size(); i++){
+						this_game.getMap().getOgres().get(i).ogrePatrol();
+						this_game.getMap().getOgres().get(i).checkForKey(this_game.getMap().getLever());
+						this_game.getMap().getOgres().get(i).getClub().swingClub(this_game.getMap().getOgres().get(i));
+						this_game.getMap().getOgres().get(i).getClub().checkForKey(this_game.getMap().getLever());
+						this_game.getMap().getHero().checkForKey(this_game.getMap().getLever());
+						this_game.getMap().getOgres().get(i).checkForHero(this_game.getMap().getHero());
+						this_game.getMap().getOgres().get(i).getClub().checkForHero(this_game.getMap().getHero());
+						this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero());
+						this_game.checkState();
+					}
+					
 				}
 				else
 					System.out.println("You can't go there...");
@@ -59,6 +62,7 @@ public class Game {
 		map = new Map(this, level);
 		this.game_state = 1;
 		this.game_level = level;
+		this.map.createOgreArmy();
 	}
 	
 	public String getMapCoordinates(int x, int y){

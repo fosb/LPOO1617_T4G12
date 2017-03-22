@@ -5,6 +5,7 @@ import logic.Character;
 import logic.Game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import character_subclasses.Blank;
 import character_subclasses.Door;
@@ -20,10 +21,11 @@ public class Map {
 	public Character[][] map;
 	private Hero hero;
 	private Guard guard;
-	private Ogre ogre;
+	private ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 	private Lever lever;
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	private Game game;
+	private Random randomGen = new Random();
 	
 	public Map(Game game, int type){// Basic Constructor, type = Level #
 		this.type = type;
@@ -43,7 +45,7 @@ public class Map {
 		
 		String[][] map2 =
 				 {{" X "," X "," X "," X "," X "," X "," X "," X "," X "},
-				  {" I ","   ","   ","   "," O ","   ","   "," k "," X "},
+				  {" I ","   ","   ","   ","   ","   ","   "," k "," X "},
 				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
 				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
 				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
@@ -145,7 +147,7 @@ public class Map {
 				else if(map[i][j] == " O "){
 					Ogre o = new Ogre(game, i, j, true);
 					this.map[i][j] = o;
-					ogre = o;
+					ogres.add(o);
 				}
 				else if(map[i][j] == " I "){
 					if(i == 0 || j == 0){
@@ -184,13 +186,37 @@ public class Map {
 		
 		this.type = type;
 	}
-	public Ogre getOgre() {
-		// TODO Auto-generated method stub
-		return this.ogre;
+	public ArrayList<Ogre> getOgres() {
+		
+		return this.ogres;
 	}
 	
 	public Lever getLever() {
-		// TODO Auto-generated method stub
+		
 		return this.lever;
+	}
+	
+	public void createOgreArmy(){
+		
+		int ogreNumber;
+		ogreNumber = randomGen.nextInt(5) + 2;
+		
+		while(ogreNumber != 0){
+			int posX = randomGen.nextInt(8) + 1;
+			int posY = randomGen.nextInt(8) + 1;
+			if(this.game.getMap().isCellEmpty(posX, posY)){
+				Ogre o = new Ogre(this.game, posX, posY, true);
+				ogres.add(o);
+				ogreNumber--;
+			}
+		}
+	}
+	
+	public Boolean isCellEmpty(int x, int y){
+		
+		if(this.map[x][y].getSymbol() == "   ")
+			return true;
+		else
+			return false;
 	}
 }
