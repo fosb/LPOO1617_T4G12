@@ -26,47 +26,48 @@ public class Map {
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	private Game game;
 	private Random randomGen = new Random();
+	private String[][] map1 =
+		 	{{" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "},
+		 	{" X "," H ","   ","   "," I ","   "," X ","   "," G "," X "},
+            {" X "," X "," X ","   "," X "," X "," X ","   ","   "," X "},
+            {" X ","   "," I ","   "," I ","   "," X ","   ","   "," X "},
+            {" X "," X "," X ","   "," X "," X "," X ","   ","   "," X "},
+            {" I ","   ","   ","   ","   ","   ","   ","   ","   "," X "},
+            {" I ","   ","   ","   ","   ","   ","   ","   ","   "," X "},
+            {" X "," X "," X ","   "," X "," X "," X "," X ","   "," X "},
+            {" X ","   "," I ","   "," I ","   "," X "," k ","   "," X "},
+            {" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "}};
+
+	private String[][] map2 =
+		    {{" X "," X "," X "," X "," X "," X "," X "," X "," X "},
+		    {" I ","   ","   ","   ","   ","   ","   "," k "," X "},
+		    {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+		    {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+		    {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+		    {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+		    {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
+		    {" X "," A ","   ","   ","   ","   ","   ","   "," X "},
+		    {" X "," X "," X "," X "," X "," X "," X "," X "," X "}};
+
+	private String[][] mapTeste1 =
+		    {{" X "," X "," X "," X "," X "},
+		    {" X "," H ","   "," G "," X "},
+		    {" I ","   ","   ","   "," X "},
+		    {" I "," k ","   ","   "," X "},
+		    {" X "," X "," X "," X "," X "}};
+
+	private String[][] mapTeste2 =
+	        {{" X "," X "," X "," X "," X "},
+	        {" X "," H ","   "," O "," X "},
+	        {" I ","   ","   ","   "," X "},
+	        {" I "," k ","   ","   "," X "},
+	        {" X "," X "," X "," X "," X "}};
 	
 	public Map(Game game, int type){// Basic Constructor, type = Level #
 		this.type = type;
 		this.game = game;
 		
-		String[][] map1 =
-				 {{" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "},
-        		  {" X "," H ","   ","   "," I ","   "," X ","   "," G "," X "},
-                  {" X "," X "," X ","   "," X "," X "," X ","   ","   "," X "},
-                  {" X ","   "," I ","   "," I ","   "," X ","   ","   "," X "},
-                  {" X "," X "," X ","   "," X "," X "," X ","   ","   "," X "},
-                  {" I ","   ","   ","   ","   ","   ","   ","   ","   "," X "},
-                  {" I ","   ","   ","   ","   ","   ","   ","   ","   "," X "},
-                  {" X "," X "," X ","   "," X "," X "," X "," X ","   "," X "},
-                  {" X ","   "," I ","   "," I ","   "," X "," k ","   "," X "},
-                  {" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "}};
-		
-		String[][] map2 =
-				 {{" X "," X "," X "," X "," X "," X "," X "," X "," X "},
-				  {" I ","   ","   ","   ","   ","   ","   "," k "," X "},
-				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
-				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
-				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
-				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
-				  {" X ","   ","   ","   ","   ","   ","   ","   "," X "},
-				  {" X "," H ","   ","   ","   ","   ","   ","   "," X "},
-				  {" X "," X "," X "," X "," X "," X "," X "," X "," X "}};
-		
-		String[][] mapTeste1 =
-				 {{" X "," X "," X "," X "," X "},
-				  {" X "," H ","   "," G "," X "},
-				  {" I ","   ","   ","   "," X "},
-				  {" I "," k ","   ","   "," X "},
-				  {" X "," X "," X "," X "," X "}};
-		
-		String[][] mapTeste2 =
-			 {{" X "," X "," X "," X "," X "},
-			  {" X "," H ","   "," O "," X "},
-			  {" I ","   ","   ","   "," X "},
-			  {" I "," k ","   ","   "," X "},
-			  {" X "," X "," X "," X "," X "}};
+
 		
 		if(type == 1){
 			map = new Character[10][10];
@@ -135,7 +136,12 @@ public class Map {
 			int j = 0;
 			while(j < this.width){
 				if(map[i][j] == " H "){
-					Hero h = new Hero(game, i, j);
+					Hero h = new Hero(game, i, j, false);
+					this.map[i][j] = h;
+					hero = h;
+				}
+				else if(map[i][j] == " A "){
+					Hero h = new Hero(game, i, j, true);
 					this.map[i][j] = h;
 					hero = h;
 				}
@@ -185,7 +191,20 @@ public class Map {
 	public void setType(int type){
 		
 		this.type = type;
+		
+		if(type == 2){
+			map = new Character[9][9];
+			this.setWidth(9);
+			this.convertMap(map2);
+		}
+		
 	}
+	
+	public void setWidth(int w){
+		
+		this.width = w;
+	}
+	
 	public ArrayList<Ogre> getOgres() {
 		
 		return this.ogres;
@@ -206,6 +225,7 @@ public class Map {
 			int posY = randomGen.nextInt(8) + 1;
 			if(this.game.getMap().isCellEmpty(posX, posY)){
 				Ogre o = new Ogre(this.game, posX, posY, true);
+				map[posX][posY].setSymbol(" O ");
 				ogres.add(o);
 				ogreNumber--;
 			}

@@ -40,8 +40,11 @@ public class Door extends Character{
 				&& Math.abs(y-this.g.getMap().getDoors().get(i).getPosY()) == 0 
 				&& this.g.getMap().getDoors().get(i).getIsExit()
 				&& this.g.getMap().getDoors().get(i).getSymbol() == " S "){
-				
-				this.g.setLevel(2);
+					this.g.setLevel(2);
+					this.g.getMap().setType(2);
+					this.g.getMap().getLever().setGuarded();
+					this.g.getMap().createOgreArmy();
+					System.out.println("?");
 			}
 		}
 	}
