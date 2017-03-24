@@ -44,10 +44,10 @@ public class Lever extends Character{
 			this.guarded = true;
 			return true;
 		}
-		else if(!this.guarded && (chr.getClass() == Ogre.class || chr.getClass() == Club.class) &&
-				!this.pickup &&(Math.abs(x-this.posx) == 1 && Math.abs(y-this.posy) == 0 ||
+		else if((chr.getClass() == Ogre.class || chr.getClass() == Club.class) &&
+				!this.pickup && (Math.abs(x-this.posx) == 1 && Math.abs(y-this.posy) == 0 ||
 				Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 1)){
-			
+			this.guarded = false;
 			Character k = new Lever(this.g, this.xSave, this.ySave);
 			this.g.setMap(this.xSave, this.ySave, k);
 			return false;

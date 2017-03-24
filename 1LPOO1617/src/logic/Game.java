@@ -35,9 +35,8 @@ public class Game {
 			}
 			else if(this_game.game_level == 2){	//Level 2
 				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
-					for(int i = 1; i < this_game.getMap().getOgres().size(); i++){
-						System.out.println(this_game.getMap().getOgres().size());
-						this_game.checkState();
+					for(int i = 0; i < this_game.getMap().getOgres().size(); i++){
+						//this_game.checkState();
 						this_game.getMap().getOgres().get(i).ogrePatrol();
 						this_game.getMap().getOgres().get(i).checkForKey(this_game.getMap().getLever());
 						this_game.getMap().getOgres().get(i).getClub().swingClub(this_game.getMap().getOgres().get(i));
