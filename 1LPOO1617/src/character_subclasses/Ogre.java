@@ -84,4 +84,49 @@ public class Ogre extends Character{
 	public Club getClub(){
 		return this.club;
 	}
+	
+	public boolean canCharacterMove(char e){// Checks if there are no obstacles in the way of the movement
+		
+		switch (e){
+		
+		case 'w':	if(g.getMapCoordinates(this.posx-1,this.posy) == "   " || 
+						g.getMapCoordinates(this.posx-1,this.posy) == " k " ||
+						g.getMapCoordinates(this.posx-1,this.posy) == " S " ||
+						g.getMapCoordinates(this.posx-1,this.posy) == " * " ||
+						g.getMapCoordinates(this.posx-1,this.posy) == " O ")
+						return true;
+					break;
+					
+		case 's':	if(g.getMapCoordinates(this.posx+1,this.posy) == "   " || 
+						g.getMapCoordinates(this.posx+1,this.posy) == " k " ||
+						g.getMapCoordinates(this.posx+1,this.posy) == " S " ||
+						g.getMapCoordinates(this.posx+1,this.posy) == " * "||
+						g.getMapCoordinates(this.posx+1,this.posy) == " O ")
+						return true;
+					break;
+		
+		case 'a':	if(g.getMapCoordinates(this.posx,this.posy-1) == "   " || 
+						g.getMapCoordinates(this.posx,this.posy-1) == " k " ||
+						g.getMapCoordinates(this.posx,this.posy-1) == " S " ||
+						g.getMapCoordinates(this.posx,this.posy-1) == " * "||
+						g.getMapCoordinates(this.posx,this.posy-1) == " O ")
+						return true;
+					else if(this.symbol == " K " && g.getMapCoordinates(this.posx,this.posy-1) == " I "){
+						this.g.getMap().getCharacter(this.posx, this.posy-1).setSymbol(" S ");
+						this.skipTurn = true;
+					}
+					break;
+			
+		case 'd':	if(g.getMapCoordinates(this.posx,this.posy+1) == "   " || 
+						g.getMapCoordinates(this.posx,this.posy+1) == " k " ||
+						g.getMapCoordinates(this.posx,this.posy+1) == " S " ||
+						g.getMapCoordinates(this.posx,this.posy+1) == " * "||
+						g.getMapCoordinates(this.posx,this.posy+1) == " O ")
+						return true;
+		
+		break;
+		}
+		
+		return false;
+	}
 }

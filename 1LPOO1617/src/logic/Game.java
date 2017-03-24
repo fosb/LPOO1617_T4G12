@@ -12,7 +12,8 @@ public class Game {
 	
 	public static void main(String args[]) throws IOException{
 		
-		Game this_game = new Game(1);
+		Game this_game = new Game(2);
+		this_game.getMap().createOgreArmy();
 		this_game.getMap().drawMap();
 		
 		while(this_game.game_state == 1){
@@ -95,8 +96,10 @@ public class Game {
 	
 	public void checkState(){
 		
-		if(this.game_state != 1)
+		if(this.game_state != 1){
+			this.getMap().drawMap();
 			System.out.println("Game Over...");
+		}
 		else 
 			this.getMap().drawMap();
 	}

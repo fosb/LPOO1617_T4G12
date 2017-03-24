@@ -218,11 +218,11 @@ public class Map {
 	public void createOgreArmy(){
 		
 		int ogreNumber;
-		ogreNumber = randomGen.nextInt(5) + 2;
+		ogreNumber = randomGen.nextInt(3) + 2;
 		
 		while(ogreNumber != 0){
 			int posX = randomGen.nextInt(8) + 1;
-			int posY = randomGen.nextInt(8) + 1;
+			int posY = randomGen.nextInt(5) + 1;
 			if(this.game.getMap().isCellEmpty(posX, posY)){
 				Ogre o = new Ogre(this.game, posX, posY, true);
 				map[posX][posY].setSymbol(" O ");

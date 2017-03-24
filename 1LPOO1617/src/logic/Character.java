@@ -158,12 +158,4 @@ public class Character {
 		this.posy = y;
 	}
 	
-	/*public void setSymbol(String s){
-		
-		this.symbol = s;
-	}*/
-	/*public String getCaracter(){
-		
-		//return this.caracter;
-	}*/
 }
