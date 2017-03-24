@@ -221,7 +221,7 @@ public class Map {
 		ogreNumber = randomGen.nextInt(3 - 2 + 1) + 2;
 		
 		while(ogreNumber != 0){
-			//random.nextInt(max - min + 1) + min
+			//random.nextInt(max - min + 1) + min 
 			int posX = randomGen.nextInt(6 - 2 + 1) + 2;
 			int posY = randomGen.nextInt(6 - 2 + 1) + 2;
 			if(this.game.getMap().isCellEmpty(posX, posY) && posX <= 4 && posY >=4){
