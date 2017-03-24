@@ -9,6 +9,8 @@ public class Game {
 	private Map map;
 	private int game_level = 0;
 	private int game_state = 0;
+	private int game_state1 = 0;
+	private int game_state2 = 0;
 	
 	public static void main(String args[]) throws IOException{
 		
@@ -22,11 +24,11 @@ public class Game {
 			//tries to move character	
 			if(this_game.game_level == 1){ //Level 1
 				if(this_game.getMap().getHero().moveCharacter(this_game.getMap().getHero().checkDirection()) == 1){
-					//this_game.getMap().getGuard().guardPatrol();
+					this_game.getMap().getGuard().guardPatrol();
 					this_game.getMap().getGuard().checkForHero(this_game.getMap().getHero());
 					this_game.getMap().getLever().checkForHero(this_game.getMap().getHero());
-					this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero());
-					this_game.checkState();
+					this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero(), 0);
+					this_game.checkState(this_game.getGameState2());
 				}
 				else
 					System.out.println("You can't go there...");
@@ -44,9 +46,9 @@ public class Game {
 						this_game.getMap().getHero().checkForKey(this_game.getMap().getLever());
 						this_game.getMap().getOgres().get(i).checkForHero(this_game.getMap().getHero());
 						this_game.getMap().getOgres().get(i).getClub().checkForHero(this_game.getMap().getHero());
-						this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero());
+						this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero(), 1);
 					}
-					this_game.checkState();
+					this_game.checkState(this_game.getGameState2());
 				}
 				else
 					System.out.println("You can't go there...");
@@ -93,11 +95,15 @@ public class Game {
 		this.game_state = x;
 	}
 	
-	public void checkState(){
+	public void checkState(int i){
 		
-		if(this.game_state != 1){
+		if(this.game_state != 1 && i == 1){
 			this.getMap().drawMap();
 			System.out.println("Game Over...");
+		}
+		if(this.game_state != 1 && i == 2){
+			this.getMap().drawMap();
+			System.out.println("You win! Congratulations");
 		}
 		else 
 			this.getMap().drawMap();
@@ -106,6 +112,26 @@ public class Game {
 	public void setLevel(int x){
 		
 		this.game_level = x;
+	}
+	
+	public int getGameState1(){
+		
+		return this.game_state1;
+	}
+	
+	public int getGameState2(){
+		
+		return this.game_state2;
+	}
+	
+	public void setGameState1(){
+		
+		this.game_state1 = 1;
+	}
+	
+	public void setGameState2(){
+		
+		this.game_state2 = 2;
 	}
 	
 }

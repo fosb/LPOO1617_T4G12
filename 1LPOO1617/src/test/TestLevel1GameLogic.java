@@ -9,7 +9,7 @@ import org.junit.Test;
 import logic.Game;
 
 public class TestLevel1GameLogic {
-	
+	/*
 	@Test
 	public void testHeroMoveToBlank() throws IOException{
 		Game this_game = new Game(3);
@@ -62,5 +62,5 @@ public class TestLevel1GameLogic {
 		this_game.getMap().getHero().moveCharacter('a');
 		this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero());
 		assertEquals(2, this_game.getLevel());
-	}
+	}*/
 }

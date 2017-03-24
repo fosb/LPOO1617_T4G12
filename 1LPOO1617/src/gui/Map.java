@@ -218,7 +218,7 @@ public class Map {
 	public void createOgreArmy(){
 		
 		int ogreNumber;
-		ogreNumber = randomGen.nextInt(3 - 2 + 1) + 2;
+		ogreNumber = 1;//randomGen.nextInt(3 - 2 + 1) + 2;
 		
 		while(ogreNumber != 0){
 			//random.nextInt(max - min + 1) + min 
