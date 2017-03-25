@@ -1,7 +1,10 @@
 package logic;
 import java.io.IOException;
+import java.awt.EventQueue;
+import javax.swing.JFrame;
 
 import gui.Map;
+import gui.gamegui;
 import logic.Character;
 
 public class Game {
@@ -13,6 +16,9 @@ public class Game {
 	private int game_state2 = 0;
 	
 	public static void main(String args[]) throws IOException{
+		
+        gamegui ex = new gamegui();
+        //ex.setVisible(true);
 		
 		Game this_game = new Game(2);
 		this_game.getMap().createOgreArmy();
