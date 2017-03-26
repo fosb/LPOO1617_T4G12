@@ -1,10 +1,10 @@
 package logic;
 import java.io.IOException;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import gui.Map;
-import gui.gamegui;
+import gui.truegui;
 import logic.Character;
 
 public class Game {
@@ -14,14 +14,20 @@ public class Game {
 	private int game_state = 0;
 	private int game_state1 = 0;
 	private int game_state2 = 0;
+	private static int guard_personality = 0;
+	private static int number_of_ogres = 0;
 	
 	public static void main(String args[]) throws IOException{
 		
-        gamegui ex = new gamegui();
-        //ex.setVisible(true);
 		
-		Game this_game = new Game(2);
-		this_game.getMap().createOgreArmy();
+		Game this_game = new Game(number_of_ogres, guard_personality);
+	    SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	            truegui gui = new truegui();
+	        }
+	    });
+		
+		//this_game.getMap().createOgreArmy(this_game.getNumberOfOgres());
 		this_game.getMap().drawMap();
 		
 		while(this_game.game_state == 1){
@@ -65,11 +71,13 @@ public class Game {
 		}
 	}
 
-	public Game(int level){// Basic Constructor
+	public Game(int numberOfOgres, int guardPersonality){// Basic Constructor
 		
-		map = new Map(this, level);
+		this.number_of_ogres = numberOfOgres;
+		this.guard_personality = guardPersonality;
+		map = new Map(this, 1, this.getGuardPersonality());
 		this.game_state = 1;
-		this.game_level = level;
+		this.game_level = 1;
 	}
 	
 	public String getMapCoordinates(int x, int y){
@@ -140,4 +148,23 @@ public class Game {
 		this.game_state2 = 2;
 	}
 	
+	public int getNumberOfOgres(){
+		
+		return this.number_of_ogres;
+	}
+	
+	public void setNumberOfOgres(int i){
+		
+		this.number_of_ogres = i;
+	}
+	
+	public int getGuardPersonality(){
+		
+		return this.guard_personality;
+	}
+	
+	public void setGuardPersonality(int i){
+		
+		this.guard_personality = i;
+	}
 }

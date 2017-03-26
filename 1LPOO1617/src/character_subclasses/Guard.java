@@ -14,22 +14,22 @@ public class Guard extends Character{
 	private Random randomGen = new Random();
 	private String personality;
 	
-	public Guard(Game g, int x, int y) {// Basic Constructor, sets random Personality of the Guard
+	public Guard(Game g, int x, int y, int personality) {// Basic Constructor, sets random Personality of the Guard
 		
 		super(g, x, y);
 		
 		this.symbol = " G "; // O - Normal, $ - Guarding Key
-		int randomNum = randomGen.nextInt(3) + 1;
+		//int randomNum = randomGen.nextInt(3) + 1;
 		
-		if(randomNum == 1){
+		if(personality == 1){
 			this.personality = "Rookie";
 			System.out.println("This guard is a Rookie!");
 		}
-		else if(randomNum == 2){
+		else if(personality == 2){
 			this.personality = "Drunken";
 			System.out.println("This guard is a Drunkard!");
 		}			
-		else if(randomNum == 3){
+		else if(personality == 3){
 			this.personality = "Suspicious";
 			System.out.println("This guard is Suspicious!");
 		}

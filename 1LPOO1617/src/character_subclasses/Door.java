@@ -43,7 +43,7 @@ public class Door extends Character{
 						this.g.setLevel(2);
 						this.g.getMap().setType(2);
 						this.g.getMap().getLever().setGuarded();
-						this.g.getMap().createOgreArmy();
+						this.g.getMap().createOgreArmy(g.getNumberOfOgres());
 						g.setGameState1();
 				}
 			}			

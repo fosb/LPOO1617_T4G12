@@ -26,6 +26,7 @@ public class Map {
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	private Game game;
 	private Random randomGen = new Random();
+	private int guard_p;
 	private String[][] map1 =
 		 	{{" X "," X "," X "," X "," X "," X "," X "," X "," X "," X "},
 		 	{" X "," H ","   ","   "," I ","   "," X ","   "," G "," X "},
@@ -63,10 +64,10 @@ public class Map {
 	        {" I "," k ","   ","   "," X "},
 	        {" X "," X "," X "," X "," X "}};
 	
-	public Map(Game game, int type){// Basic Constructor, type = Level #
+	public Map(Game game, int type, int guard_p){// Basic Constructor, type = Level #
 		this.type = type;
 		this.game = game;
-		
+		this.guard_p = guard_p;
 
 		
 		if(type == 1){
@@ -146,7 +147,7 @@ public class Map {
 					hero = h;
 				}
 				else if(map[i][j] == " G "){
-					Guard g = new Guard(game, i, j);
+					Guard g = new Guard(game, i, j, guard_p);
 					this.map[i][j] = g;
 					guard = g;
 				}
@@ -215,10 +216,10 @@ public class Map {
 		return this.lever;
 	}
 	
-	public void createOgreArmy(){
+	public void createOgreArmy(int i){
 		
-		int ogreNumber;
-		ogreNumber = randomGen.nextInt(3 - 2 + 1) + 2;
+		int ogreNumber = i;
+		//ogreNumber = randomGen.nextInt(3 - 2 + 1) + 2;
 		
 		while(ogreNumber != 0){
 			//random.nextInt(max - min + 1) + min 

@@ -1,43 +1,26 @@
 package gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class gamegui {
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class truegui extends JPanel {
 
 	private JFrame frame;
 	private JTextField numberOfOgresInput;
-
+	
 	/**
-	 * Launch the application.
+	 * Create the panel.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					gamegui window = new gamegui();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public gamegui() {
+	public truegui() {
 		initialize();
 	}
 
@@ -71,6 +54,11 @@ public class gamegui {
 		panel.add(guardPersonalityInput);
 		
 		JButton btnNewGame = new JButton("New Game");
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnNewGame.setBounds(297, 25, 97, 25);
 		panel.add(btnNewGame);
 		
@@ -101,9 +89,12 @@ public class gamegui {
 		JButton btnDown = new JButton("Down");
 		btnDown.setBounds(297, 182, 89, 25);
 		panel.add(btnDown);
-		
+			
 		JLabel lblGameStatus = new JLabel("game status");
 		lblGameStatus.setBounds(12, 224, 226, 16);
 		panel.add(lblGameStatus);
+		
+
+        frame.setVisible(true);
 	}
 }
