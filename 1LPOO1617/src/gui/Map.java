@@ -241,4 +241,23 @@ public class Map {
 		else
 			return false;
 	}
+	
+	public String convertToGui(){
+		
+		String result = "";
+
+		
+		int i = 0;
+		while(i < this.width){
+			int j = 0;
+			while(j < this.width){
+				result += map[i][j].getSymbol();
+				j++;
+			}
+			result += "\n";
+			i++;
+		}
+		return result;
+		
+	}
 }

@@ -1,8 +1,10 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,10 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import logic.Game;
+
 public class truegui extends JPanel {
 
 	private JFrame frame;
 	private JTextField numberOfOgresInput;
+	private String ogre_input;
+	private String guard_personality;
+	private Game g;
 	
 	/**
 	 * Create the panel.
@@ -44,30 +51,40 @@ public class truegui extends JPanel {
 		numberOfOgresInput.setBounds(122, 26, 116, 22);
 		panel.add(numberOfOgresInput);
 		numberOfOgresInput.setColumns(10);
+		numberOfOgresInput.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//ogre_input = numberOfOgresInput.getText();
+			}
+		});
 		
 		JLabel guardPersonality = new JLabel("Guard personality");
 		guardPersonality.setBounds(12, 64, 100, 16);
 		panel.add(guardPersonality);
 		
-		JComboBox guardPersonalityInput = new JComboBox();
+		JComboBox<String> guardPersonalityInput = new JComboBox<String>();
 		guardPersonalityInput.setBounds(122, 61, 116, 22);
 		panel.add(guardPersonalityInput);
+		guardPersonalityInput.addItem(" ");
+		guardPersonalityInput.addItem("Rookie");
+		guardPersonalityInput.addItem("Drunken");
+		guardPersonalityInput.addItem("Suspicious");
 		
-		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.addActionListener(new ActionListener() {
+		guardPersonalityInput.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				guard_personality = (String) guardPersonalityInput.getSelectedItem();
 			}
 		});
-		btnNewGame.setBounds(297, 25, 97, 25);
-		panel.add(btnNewGame);
-		
+				
 		JButton btnExit = new JButton("Exit");
 		btnExit.setBounds(297, 60, 97, 25);
 		panel.add(btnExit);
 		
 		JTextArea textAreaGameMap = new JTextArea();
 		textAreaGameMap.setBounds(12, 113, 226, 111);
+		Font font = new Font("Courier New", Font.PLAIN, 16);
+		textAreaGameMap.setFont(font);
+		textAreaGameMap.setEditable(false);
 		panel.add(textAreaGameMap);
 		
 		JButton btnUp = new JButton("Up");
@@ -94,7 +111,57 @@ public class truegui extends JPanel {
 		lblGameStatus.setBounds(12, 224, 226, 16);
 		panel.add(lblGameStatus);
 		
+		JButton btnNewGame = new JButton("New Game");
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = guardPersonalityInput.getSelectedIndex();
+				String o = numberOfOgresInput.getText();
+				g = new Game(i, o);
+				g.startGame();
+				g.getMap().drawMap();
+				textAreaGameMap.append(g.getMap().convertToGui());
+	    		
+				try {
+					while(g.playGame()){						
+					}
+				} catch (StringIndexOutOfBoundsException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewGame.setBounds(297, 25, 97, 25);
+		panel.add(btnNewGame);
+		
 
         frame.setVisible(true);
 	}
+	
+	public int getNumberOfOgres(){
+		
+		int foo = Integer.parseInt(this.ogre_input);
+		return foo;
+	}
+	
+	public int getGuardPersonality(){
+		
+		switch(this.guard_personality){
+		
+		case "Rookie":
+			return 1;
+		case "Drunken":
+			return 2;
+		case "Suspicious":
+			return 3;
+		}
+		
+		return 0;
+	}
+	
+	public Game getGame(){
+		
+		return this.g;
+	}
 }
+
+
