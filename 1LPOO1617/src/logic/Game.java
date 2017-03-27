@@ -22,7 +22,11 @@ public class Game {
 	public Game(int g, String o){// Basic Constructor
 		
 		this.guard_personality = g;
-		this.number_of_ogres = Integer.parseInt(o);
+		try{
+			this.number_of_ogres = Integer.parseInt(o);
+		}catch (NumberFormatException e1){
+			System.out.println("Invalid number of Ogres. Must be between 1 and 5!");
+		}
 		map = new Map(this, 1, this.getGuardPersonality());
 		this.game_state = 1;
 		this.game_level = 1;
