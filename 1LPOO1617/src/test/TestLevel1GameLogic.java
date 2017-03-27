@@ -9,10 +9,10 @@ import org.junit.Test;
 import logic.Game;
 
 public class TestLevel1GameLogic {
-	/*
-	@Test
+	
+	/*@Test
 	public void testHeroMoveToBlank() throws IOException{
-		Game this_game = new Game(3);
+		Game this_game = new Game(3, 0);
 		assertEquals(this_game.getMap().getCharacter(1, 1), this_game.getMap().getHero());
 		this_game.getMap().getHero().moveCharacter('s');	
 		assertEquals(this_game.getMap().getCharacter(2, 1), this_game.getMap().getHero());
@@ -53,7 +53,7 @@ public class TestLevel1GameLogic {
 	}
 	@Test
 	public void testHeroUsesLeverAndLeaves() throws IOException{
-		Game this_game = new Game(3);
+		Game this_game = new Game(3, 0);
 		assertEquals(this_game.getMap().getCharacter(1, 1), this_game.getMap().getHero());
 		this_game.getMap().getHero().moveCharacter('s');
 		this_game.getMap().getHero().moveCharacter('s');

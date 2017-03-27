@@ -88,22 +88,58 @@ public class truegui extends JPanel {
 		panel.add(textAreaGameMap);
 		
 		JButton btnUp = new JButton("Up");
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0){
+				try {
+					g.playGame('w');
+				} catch (StringIndexOutOfBoundsException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		btnUp.setBounds(297, 106, 89, 25);
 		panel.add(btnUp);
 		
 		JButton btnLeft = new JButton("Left");
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0){
+				try {
+					g.playGame('a');
+				} catch (StringIndexOutOfBoundsException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		btnLeft.setBounds(242, 144, 89, 25);
 		panel.add(btnLeft);
 		
 		JButton btnRight = new JButton("Right");
 		btnRight.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0){
+				try {
+					g.playGame('d');
+				} catch (StringIndexOutOfBoundsException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		btnRight.setBounds(343, 144, 89, 25);
 		panel.add(btnRight);
 		
 		JButton btnDown = new JButton("Down");
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0){
+				try {
+					g.playGame('s');
+				} catch (StringIndexOutOfBoundsException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		btnDown.setBounds(297, 182, 89, 25);
 		panel.add(btnDown);
 			
@@ -122,9 +158,9 @@ public class truegui extends JPanel {
 				textAreaGameMap.append(g.getMap().convertToGui());
 	    		
 				try {
-					while(g.playGame()){						
-					}
-				} catch (StringIndexOutOfBoundsException | IOException e1) {
+					g.getMap().drawMap();						
+					
+				} catch (StringIndexOutOfBoundsException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

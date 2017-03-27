@@ -28,15 +28,13 @@ public class Game {
 		this.game_level = 1;
 	}
 	
-	public boolean playGame() throws StringIndexOutOfBoundsException, IOException{
+	public void playGame(char dir) throws StringIndexOutOfBoundsException, IOException{
 		
-    		
-    		while(this.game_state == 1){
     			//ask for user input
     			System.out.println("Enter a direction:");
     			//tries to move character	
     			if(this.game_level == 1){ //Level 1
-    				if(this.getMap().getHero().moveCharacter(this.getMap().getHero().checkDirection()) == 1){
+    				if(this.getMap().getHero().moveCharacter(dir) == 1){
     					this.getMap().getGuard().guardPatrol();
     					this.getMap().getGuard().checkForHero(this.getMap().getHero());
     					this.getMap().getLever().checkForHero(this.getMap().getHero());
@@ -49,7 +47,7 @@ public class Game {
     				//this.getMap().drawMap();
     			}
     			else if(this.game_level == 2){	//Level 2
-    				if(this.getMap().getHero().moveCharacter(this.getMap().getHero().checkDirection()) == 1){
+    				if(this.getMap().getHero().moveCharacter(dir) == 1){
     					for(int i = 0; i < this.getMap().getOgres().size(); i++){
     						//this.checkState();
     						this.getMap().getOgres().get(i).ogrePatrol();
@@ -69,9 +67,6 @@ public class Game {
     				//this.getMap().drawMap();
     			}
     			//restart
-    			return true;
-    		}
-        	return false;
         }		
 	
 	public String getMapCoordinates(int x, int y){
