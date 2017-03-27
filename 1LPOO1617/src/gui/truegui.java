@@ -30,7 +30,7 @@ public class truegui extends JPanel {
 	public truegui() {
 		initialize();
 	}
-
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -75,10 +75,6 @@ public class truegui extends JPanel {
 				guard_personality = (String) guardPersonalityInput.getSelectedItem();
 			}
 		});
-				
-		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(297, 60, 97, 25);
-		panel.add(btnExit);
 		
 		JTextArea textAreaGameMap = new JTextArea();
 		textAreaGameMap.setBounds(12, 113, 226, 111);
@@ -87,11 +83,24 @@ public class truegui extends JPanel {
 		textAreaGameMap.setEditable(false);
 		panel.add(textAreaGameMap);
 		
+		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0){
+				g.setState(0);
+				g.checkState();
+				textAreaGameMap.setText("Game Over...");
+			}
+		});
+		btnExit.setBounds(297, 60, 97, 25);
+		panel.add(btnExit);
+		
 		JButton btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				try {
 					g.playGame('w');
+					g.getMap().drawMap();
+					textAreaGameMap.setText(g.getMap().convertToGui());
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -106,6 +115,8 @@ public class truegui extends JPanel {
 			public void actionPerformed(ActionEvent arg0){
 				try {
 					g.playGame('a');
+					g.getMap().drawMap();
+					textAreaGameMap.setText(g.getMap().convertToGui());
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -120,6 +131,8 @@ public class truegui extends JPanel {
 			public void actionPerformed(ActionEvent arg0){
 				try {
 					g.playGame('d');
+					g.getMap().drawMap();
+					textAreaGameMap.setText(g.getMap().convertToGui());
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -134,6 +147,8 @@ public class truegui extends JPanel {
 			public void actionPerformed(ActionEvent arg0){
 				try {
 					g.playGame('s');
+					g.getMap().drawMap();
+					textAreaGameMap.setText(g.getMap().convertToGui());
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -155,7 +170,7 @@ public class truegui extends JPanel {
 				g = new Game(i, o);
 				g.startGame();
 				g.getMap().drawMap();
-				textAreaGameMap.append(g.getMap().convertToGui());
+				textAreaGameMap.setText(g.getMap().convertToGui());
 	    		
 				try {
 					g.getMap().drawMap();						

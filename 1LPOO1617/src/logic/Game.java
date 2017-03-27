@@ -39,7 +39,7 @@ public class Game {
     					this.getMap().getGuard().checkForHero(this.getMap().getHero());
     					this.getMap().getLever().checkForHero(this.getMap().getHero());
     					this.getMap().getDoors().get(0).checkExit(this.getMap().getHero(), 0);
-    					this.checkState(this.getGameState2());
+    					this.checkState();
     				}
     				else
     					System.out.println("You can't go there...");
@@ -59,7 +59,7 @@ public class Game {
     						this.getMap().getOgres().get(i).getClub().checkForHero(this.getMap().getHero());
     						this.getMap().getDoors().get(0).checkExit(this.getMap().getHero(), 1);
     					}
-    					this.checkState(this.getGameState2());
+    					this.checkState();
     				}
     				else
     					System.out.println("You can't go there...");
@@ -98,18 +98,19 @@ public class Game {
 		this.game_state = x;
 	}
 	
-	public void checkState(int i){
+	public boolean checkState(){
 		
-		if(this.game_state != 1 && i == 1){
-			this.getMap().drawMap();
+		if(this.game_state == 0){
 			System.out.println("Game Over...");
+			return false;
 		}
-		if(this.game_state != 1 && i == 2){
-			this.getMap().drawMap();
+		if(this.game_state == 2){
 			System.out.println("You win! Congratulations");
+			
+			return true;
 		}
-		else 
-			this.getMap().drawMap();
+		else
+			return true;
 	}
 	
 	public void setLevel(int x){
