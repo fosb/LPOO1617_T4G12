@@ -57,6 +57,10 @@ public class truegui extends JPanel {
 			}
 		});
 		
+		JLabel lblGameStatus = new JLabel("game status");
+		lblGameStatus.setBounds(12, 354, 530, 16);
+		panel.add(lblGameStatus);
+		
 		JLabel guardPersonality = new JLabel("Guard personality");
 		guardPersonality.setBounds(44, 67, 100, 16);
 		panel.add(guardPersonality);
@@ -90,6 +94,7 @@ public class truegui extends JPanel {
 					g.playGame('w');
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
+					checkState(lblGameStatus);
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -107,6 +112,7 @@ public class truegui extends JPanel {
 					g.playGame('a');
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
+					checkState(lblGameStatus);
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -124,6 +130,7 @@ public class truegui extends JPanel {
 					g.playGame('d');
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
+					checkState(lblGameStatus);
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -141,6 +148,7 @@ public class truegui extends JPanel {
 					g.playGame('s');
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
+					checkState(lblGameStatus);
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -150,7 +158,7 @@ public class truegui extends JPanel {
 		btnDown.setBounds(407, 261, 89, 25);
 		panel.add(btnDown);
 		btnDown.setEnabled(false);
-			
+		
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
@@ -168,10 +176,6 @@ public class truegui extends JPanel {
 		btnExit.setBounds(399, 64, 97, 25);
 		panel.add(btnExit);
 		btnExit.setEnabled(false);
-		
-		JLabel lblGameStatus = new JLabel("game status");
-		lblGameStatus.setBounds(12, 354, 530, 16);
-		panel.add(lblGameStatus);
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
@@ -217,6 +221,13 @@ public class truegui extends JPanel {
 		panel.add(btnNewGame);
 
         frame.setVisible(true);
+	}
+	
+	private void checkState(JLabel x){
+		if(g.getLevel() == 1 && g.getState() == 2)
+			x.setText("You win! Congratulations");
+		else if(g.getState() == 0)
+			x.setText("Game over...");
 	}
 	
 	public int getNumberOfOgres(){
