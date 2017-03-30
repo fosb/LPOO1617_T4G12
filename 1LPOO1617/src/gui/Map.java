@@ -227,7 +227,7 @@ public class Map {
 			int posY = randomGen.nextInt(6 - 2 + 1) + 2;
 			if(this.game.getMap().isCellEmpty(posX, posY) && posX <= 4 && posY >=4){
 				Ogre o = new Ogre(this.game, posX, posY, true);
-				map[posX][posY].setSymbol(" O ");
+				this.game.setMap(posX, posY, o);
 				ogres.add(o);
 				ogreNumber--;
 			}

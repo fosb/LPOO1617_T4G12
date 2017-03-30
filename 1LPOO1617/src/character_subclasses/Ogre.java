@@ -9,7 +9,7 @@ import logic.Character;
 
 public class Ogre extends Character{
 
-	public int randomNum;
+	private int randomNum;
 	private Random randomGen = new Random();
 	private Club club;
 	private int stunned_status = 0;
@@ -25,10 +25,8 @@ public class Ogre extends Character{
 		
 		super(g, x, y);
 		
-		if(club){
+		if(club)
 			this.club = new Club(this.g, this.posx, this.posy);
-			this.club.setSymbol(" * ");
-		}
 		
 		this.symbol = " O "; // O - Normal, $ - Guarding Key
 	}
@@ -46,8 +44,6 @@ public class Ogre extends Character{
 	}
 	
 	public void ogrePatrol() throws IOException{// Moves Ogre in a random valid direction(UP, DOWN, LEFT or RIGHT)
-		
-		this.club.clearClub();
 		
 		if(stunned_status != 0){
 			stunned_status--;
@@ -94,48 +90,12 @@ public class Ogre extends Character{
 		return this.club;
 	}
 	
-	public boolean canCharacterMove(char e){// Checks if there are no obstacles in the way of the movement
-		
-		switch (e){
-		
-		case 'w':	if(g.getMapCoordinates(this.posx-1,this.posy) == "   " || 
-						g.getMapCoordinates(this.posx-1,this.posy) == " k " ||
-						g.getMapCoordinates(this.posx-1,this.posy) == " S " ||
-						g.getMapCoordinates(this.posx-1,this.posy) == " * " ||
-						g.getMapCoordinates(this.posx-1,this.posy) == " O ")
-						return true;
-					break;
-					
-		case 's':	if(g.getMapCoordinates(this.posx+1,this.posy) == "   " || 
-						g.getMapCoordinates(this.posx+1,this.posy) == " k " ||
-						g.getMapCoordinates(this.posx+1,this.posy) == " S " ||
-						g.getMapCoordinates(this.posx+1,this.posy) == " * "||
-						g.getMapCoordinates(this.posx+1,this.posy) == " O ")
-						return true;
-					break;
-		
-		case 'a':	if(g.getMapCoordinates(this.posx,this.posy-1) == "   " || 
-						g.getMapCoordinates(this.posx,this.posy-1) == " k " ||
-						g.getMapCoordinates(this.posx,this.posy-1) == " S " ||
-						g.getMapCoordinates(this.posx,this.posy-1) == " * "||
-						g.getMapCoordinates(this.posx,this.posy-1) == " O ")
-						return true;
-					else if(this.symbol == " K " && g.getMapCoordinates(this.posx,this.posy-1) == " I "){
-						this.g.getMap().getCharacter(this.posx, this.posy-1).setSymbol(" S ");
-						this.skipTurn = true;
-					}
-					break;
-			
-		case 'd':	if(g.getMapCoordinates(this.posx,this.posy+1) == "   " || 
-						g.getMapCoordinates(this.posx,this.posy+1) == " k " ||
-						g.getMapCoordinates(this.posx,this.posy+1) == " S " ||
-						g.getMapCoordinates(this.posx,this.posy+1) == " * "||
-						g.getMapCoordinates(this.posx,this.posy+1) == " O ")
-						return true;
-		
-		break;
-		}
-		
-		return false;
+	public void clearClubs(){
+		for(int i = 0; i < this.g.getMap().getOgres().size(); i++)
+			this.g.getMap().getOgres().get(i).getClub().clearClub();
+	}
+	
+	public int getStunned(){
+		return this.stunned_status;
 	}
 }
