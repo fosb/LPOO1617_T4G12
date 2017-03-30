@@ -12,7 +12,7 @@ public class drawBlock extends JPanel{
 		repaint();
 	}
 	
-	@Override
+	//@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 	    ImageIcon image = new ImageIcon("images\\castle.png");

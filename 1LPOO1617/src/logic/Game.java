@@ -19,6 +19,16 @@ public class Game {
 	private int guard_personality = 0;
 	private int number_of_ogres = 0;
 
+
+	public Game(){
+
+		map = new Map(this, 1, this.getGuardPersonality());
+		this.game_state = 1;
+		this.game_level = 1;
+		
+	}
+	
+	
 	public Game(int g, String o, String l){// Basic Constructor
 		
 		this.guard_personality = g;
