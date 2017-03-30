@@ -19,7 +19,7 @@ public class Game {
 	private int guard_personality = 0;
 	private int number_of_ogres = 0;
 
-	public Game(int g, String o){// Basic Constructor
+	public Game(int g, String o, String l){// Basic Constructor
 		
 		this.guard_personality = g;
 		try{
@@ -27,12 +27,18 @@ public class Game {
 		}catch (NumberFormatException e1){
 			System.out.println("Invalid number of Ogres. Must be between 1 and 5!");
 		}
-		map = new Map(this, 1, this.getGuardPersonality());
+		try{
+			this.game_level = Integer.parseInt(l);
+		}catch (NumberFormatException e1){
+			System.out.println("Invalid Level number. Must be between 1 and 2!");
+		}
+		map = new Map(this, this.game_level, this.getGuardPersonality());
+		if(this.game_level == 2)
+			this.getMap().createOgreArmy(this.number_of_ogres);
 		this.game_state = 1;
-		this.game_level = 1;
 	}
 	
-	public void playGame(char dir) throws StringIndexOutOfBoundsException, IOException{
+	public boolean playGame(char dir) throws StringIndexOutOfBoundsException, IOException{
 		
     			//ask for user input
     			System.out.println("Enter a direction:");
@@ -44,9 +50,12 @@ public class Game {
     					this.getMap().getLever().checkForHero(this.getMap().getHero());
     					this.getMap().getDoors().get(0).checkExit(this.getMap().getHero(), 0);
     					this.checkState();
+    					return true;
     				}
-    				else
+    				else{
     					System.out.println("You can't go there...");
+    					return false;
+    				}
     				
     				//this.getMap().drawMap();
     			}
@@ -56,20 +65,24 @@ public class Game {
     						//this.checkState();
     						this.getMap().getOgres().get(i).ogrePatrol();
     						this.getMap().getOgres().get(i).checkForKey(this.getMap().getLever());
+    						this.getMap().getOgres().get(i).checkForHero(this.getMap().getHero());
     						this.getMap().getOgres().get(i).getClub().swingClub(this.getMap().getOgres().get(i));
     						this.getMap().getOgres().get(i).getClub().checkForKey(this.getMap().getLever());
-    						this.getMap().getHero().checkForKey(this.getMap().getLever());
-    						this.getMap().getOgres().get(i).checkForHero(this.getMap().getHero());
     						this.getMap().getOgres().get(i).getClub().checkForHero(this.getMap().getHero());
-    						this.getMap().getDoors().get(0).checkExit(this.getMap().getHero(), 1);
     					}
+    					this.getMap().getHero().checkForKey(this.getMap().getLever());
+    					this.getMap().getDoors().get(0).checkExit(this.getMap().getHero(), 1);
     					this.checkState();
+    					return true;
     				}
-    				else
+    				else{
     					System.out.println("You can't go there...");
+    					return false;
+    				}
     				
     				//this.getMap().drawMap();
     			}
+    			return false;
     			//restart
         }		
 	
@@ -108,7 +121,7 @@ public class Game {
 			System.out.println("Game Over...");
 			return false;
 		}
-		if(this.game_state == 2){
+		if(this.game_state == 2 ){
 			System.out.println("You win! Congratulations");
 			
 			return true;

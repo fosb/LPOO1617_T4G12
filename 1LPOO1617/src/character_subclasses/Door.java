@@ -55,7 +55,7 @@ public class Door extends Character{
 					&& this.g.getMap().getDoors().get(i).getIsExit()
 					&& this.g.getMap().getDoors().get(i).getSymbol() == " S "){
 						this.g.setGameState2();
-						this.g.setState(0);
+						this.g.setState(2);
 						return;
 				}
 			}

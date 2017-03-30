@@ -44,7 +44,7 @@ public class Lever extends Character{
 			this.guarded = true;
 			return true;
 		}
-		else if(!this.pickup && chr.getClass() == Hero.class && (Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0)){
+		else if(!this.pickup && chr.getClass() == Hero.class && Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0){
 			this.pickup = true;
 			return true;
 		}
@@ -54,6 +54,14 @@ public class Lever extends Character{
 			this.guarded = false;
 			Character k = new Lever(this.g, this.xSave, this.ySave);
 			this.g.setMap(this.xSave, this.ySave, k);
+			return false;
+		}
+		else if(this.pickup && chr.getClass() == Hero.class && (Math.abs(x-this.posx) == 1 && 
+				Math.abs(y-this.posy) == 0 || Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 1)){
+			if(this.g.getMapCoordinates(this.posx, this.posy) == "   "){
+				Character blank = new Blank(this.g, this.posx, this.posy);
+				this.g.setMap(this.posx, this.posy, blank);
+			}
 			return false;
 		}
 		else{

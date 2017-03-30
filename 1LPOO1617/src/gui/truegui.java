@@ -20,6 +20,7 @@ public class truegui extends JPanel {
 
 	private JFrame frame;
 	private JTextField numberOfOgresInput;
+	private JTextField levelInput;
 	private String ogre_input;
 	private String guard_personality;
 	private Game g;
@@ -44,11 +45,11 @@ public class truegui extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel numberOfOgres = new JLabel("Number of Ogres");
-		numberOfOgres.setBounds(44, 32, 98, 16);
+		numberOfOgres.setBounds(46, 49, 98, 16);
 		panel.add(numberOfOgres);
 		
 		numberOfOgresInput = new JTextField();
-		numberOfOgresInput.setBounds(154, 29, 116, 22);
+		numberOfOgresInput.setBounds(156, 46, 116, 22);
 		panel.add(numberOfOgresInput);
 		numberOfOgresInput.setColumns(10);
 		numberOfOgresInput.addActionListener(new ActionListener() {
@@ -62,11 +63,11 @@ public class truegui extends JPanel {
 		panel.add(lblGameStatus);
 		
 		JLabel guardPersonality = new JLabel("Guard personality");
-		guardPersonality.setBounds(44, 67, 100, 16);
+		guardPersonality.setBounds(46, 81, 100, 16);
 		panel.add(guardPersonality);
 		
 		JComboBox<String> guardPersonalityInput = new JComboBox<String>();
-		guardPersonalityInput.setBounds(154, 64, 116, 22);
+		guardPersonalityInput.setBounds(156, 78, 116, 22);
 		panel.add(guardPersonalityInput);
 		guardPersonalityInput.addItem(" ");
 		guardPersonalityInput.addItem("Rookie");
@@ -91,10 +92,15 @@ public class truegui extends JPanel {
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				try {
-					g.playGame('w');
+					if(!g.playGame('w'))
+						lblGameStatus.setText("You can't go there...");
+					else
+						lblGameStatus.setText("Next move?");
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
-					checkState(lblGameStatus);
+					checkState(lblGameStatus, textAreaGameMap);
+					if(g.getLevel() == 2)
+						g.getMap().getOgres().get(0).clearClubs();
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -109,10 +115,15 @@ public class truegui extends JPanel {
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				try {
-					g.playGame('a');
+					if(!g.playGame('a'))
+						lblGameStatus.setText("You can't go there...");
+					else 
+						lblGameStatus.setText("Next move?");
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
-					checkState(lblGameStatus);
+					checkState(lblGameStatus, textAreaGameMap);
+					if(g.getLevel() == 2)
+						g.getMap().getOgres().get(0).clearClubs();
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -127,10 +138,15 @@ public class truegui extends JPanel {
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				try {
-					g.playGame('d');
+					if(!g.playGame('d'))
+						lblGameStatus.setText("You can't go there...");
+					else 
+						lblGameStatus.setText("Next move?");
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
-					checkState(lblGameStatus);
+					checkState(lblGameStatus, textAreaGameMap);
+					if(g.getLevel() == 2)
+							g.getMap().getOgres().get(0).clearClubs();
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -145,10 +161,15 @@ public class truegui extends JPanel {
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				try {
-					g.playGame('s');
+					if(!g.playGame('s'))
+						lblGameStatus.setText("You can't go there...");
+					else
+						lblGameStatus.setText("Next move?");
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
-					checkState(lblGameStatus);
+					checkState(lblGameStatus, textAreaGameMap);
+					if(g.getLevel() == 2)
+						g.getMap().getOgres().get(0).clearClubs();
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -164,7 +185,8 @@ public class truegui extends JPanel {
 			public void actionPerformed(ActionEvent arg0){
 				g.setState(0);
 				g.checkState();
-				textAreaGameMap.setText("Game Over...");
+				textAreaGameMap.setText("Game Over... Try Again? \nHit \"New Game\"!");
+				lblGameStatus.setText("Game Over...");
 				
 				btnUp.setEnabled(false);
 				btnLeft.setEnabled(false);
@@ -177,6 +199,21 @@ public class truegui extends JPanel {
 		panel.add(btnExit);
 		btnExit.setEnabled(false);
 		
+		JLabel Level = new JLabel("Level");
+		Level.setBounds(46, 16, 98, 16);
+		panel.add(Level);
+		
+		levelInput = new JTextField();
+		levelInput.setBounds(156, 13, 116, 22);
+		panel.add(levelInput);
+		levelInput.setColumns(10);
+		levelInput.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//ogre_input = numberOfOgresInput.getText();
+			}
+		});
+		
+		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -187,7 +224,7 @@ public class truegui extends JPanel {
 				int i = guardPersonalityInput.getSelectedIndex();
 				try{
 				if(Integer.parseInt(numberOfOgresInput.getText()) > 5 || 
-						Integer.parseInt(numberOfOgresInput.getText()) <= 0){
+						Integer.parseInt(numberOfOgresInput.getText()) < 1){
 					lblGameStatus.setText("Invalid number of Ogres. Must be between 1 and 5!");
 					return ;
 				}
@@ -196,11 +233,24 @@ public class truegui extends JPanel {
 					lblGameStatus.setText("Invalid number of Ogres. Must be between 1 and 5!");
 					return ;
 				}
+				try{
+					if(Integer.parseInt(levelInput.getText()) > 2 || 
+							Integer.parseInt(levelInput.getText()) < 1){
+						lblGameStatus.setText("Invalid Level number. Must be between 1 and 2!");
+						return ;
+					}
+				}
+				catch (NullPointerException | NumberFormatException e2){
+					lblGameStatus.setText("Invalid Level number. Must be between 1 and 2!");
+					return ;
+				}
+				String l = levelInput.getText();
 				String o = numberOfOgresInput.getText();
-				g = new Game(i, o);
+				g = new Game(i, o, l);
 				g.startGame();
 				g.getMap().drawMap();
 				textAreaGameMap.setText(g.getMap().convertToGui());
+				lblGameStatus.setText("Next move?");
 	    		
 				try {
 					g.getMap().drawMap();						
@@ -223,11 +273,20 @@ public class truegui extends JPanel {
         frame.setVisible(true);
 	}
 	
-	private void checkState(JLabel x){
-		if(g.getLevel() == 1 && g.getState() == 2)
-			x.setText("You win! Congratulations");
-		else if(g.getState() == 0)
-			x.setText("Game over...");
+	private void checkState(JLabel x, JTextArea y){
+		if(g.getLevel() == 1 && g.getState() == 2){
+			x.setText("Congratulations");
+			y.setText("And just when you thought your captivity had ended, you realise you still have another challenge to overcome...go through the Keep's Crazy Ogre.");
+		}
+		else if(g.getLevel() == 2 && g.getState() == 2){
+			x.setText("Congratulations! Try Again? \nHit \"New Game\"!\n");
+			y.setText("You escaped!");
+		}			
+		else if(g.getState() == 0){
+			x.setText("Game over");
+			y.setText("You lost... Try Again? \nHit \"New Game\"!\n");
+			y.append(g.getMap().convertToGui());
+		}
 	}
 	
 	public int getNumberOfOgres(){
