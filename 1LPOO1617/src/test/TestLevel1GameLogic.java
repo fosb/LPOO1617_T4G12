@@ -10,9 +10,9 @@ import logic.Game;
 
 public class TestLevel1GameLogic {
 	
-	/*@Test
+	@Test
 	public void testHeroMoveToBlank() throws IOException{
-		Game this_game = new Game(3, 0);
+		Game this_game = new Game(3);
 		assertEquals(this_game.getMap().getCharacter(1, 1), this_game.getMap().getHero());
 		this_game.getMap().getHero().moveCharacter('s');	
 		assertEquals(this_game.getMap().getCharacter(2, 1), this_game.getMap().getHero());
@@ -53,7 +53,7 @@ public class TestLevel1GameLogic {
 	}
 	@Test
 	public void testHeroUsesLeverAndLeaves() throws IOException{
-		Game this_game = new Game(3, 0);
+		Game this_game = new Game(3);
 		assertEquals(this_game.getMap().getCharacter(1, 1), this_game.getMap().getHero());
 		this_game.getMap().getHero().moveCharacter('s');
 		this_game.getMap().getHero().moveCharacter('s');
@@ -61,6 +61,6 @@ public class TestLevel1GameLogic {
 		assertEquals(3, this_game.getLevel());
 		this_game.getMap().getHero().moveCharacter('a');
 		this_game.getMap().getDoors().get(0).checkExit(this_game.getMap().getHero());
-		assertEquals(2, this_game.getLevel());
-	}*/
+		assertEquals(2, this_game.getState());
+	}
 }

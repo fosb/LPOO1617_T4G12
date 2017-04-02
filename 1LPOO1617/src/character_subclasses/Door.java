@@ -30,39 +30,20 @@ public class Door extends Character{
 		this.symbol = " S ";
 	}
 	
-	public void checkExit(Character hero, int k){// Checks if Hero is ON an Exit Door
+	public void checkExit(Character hero){// Checks if Hero is ON an Exit Door
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		
-		if(k == 0){
-			for(int i = 0; i < this.g.getMap().getDoors().size(); i++){
-				if(Math.abs(x-this.g.getMap().getDoors().get(i).getPosX()) == 0 
-					&& Math.abs(y-this.g.getMap().getDoors().get(i).getPosY()) == 0 
-					&& this.g.getMap().getDoors().get(i).getIsExit()
-					&& this.g.getMap().getDoors().get(i).getSymbol() == " S "){
-						this.g.setLevel(2);
-						this.g.getMap().setType(2);
-						this.g.getMap().getLever().setGuarded();
-						this.g.getMap().createOgreArmy(g.getNumberOfOgres());
-						g.setGameState1();
-				}
-			}			
-		}
-		else if(k == 1){
-			for(int i = 0; i < this.g.getMap().getDoors().size(); i++){
-				if(Math.abs(x-this.g.getMap().getDoors().get(i).getPosX()) == 0 
-					&& Math.abs(y-this.g.getMap().getDoors().get(i).getPosY()) == 0 
-					&& this.g.getMap().getDoors().get(i).getIsExit()
-					&& this.g.getMap().getDoors().get(i).getSymbol() == " S "){
-						this.g.setGameState2();
-						this.g.setState(2);
-						return;
-				}
+		for(int i = 0; i < this.g.getMap().getDoors().size(); i++){
+			if(Math.abs(x-this.g.getMap().getDoors().get(i).getPosX()) == 0 
+				&& Math.abs(y-this.g.getMap().getDoors().get(i).getPosY()) == 0 
+				&& this.g.getMap().getDoors().get(i).getIsExit()
+				&& this.g.getMap().getDoors().get(i).getSymbol() == " S "){
+					this.g.setState(2);
+					if(this.g.getLevel() == 2)
+						this.g.setState(3);
 			}
 		}
-		else
-			System.out.println("This isn't supposed to happen.");
-
 	}
 	
 	public boolean getIsExit(){

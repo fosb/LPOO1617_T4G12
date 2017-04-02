@@ -1,11 +1,6 @@
 package logic;
-import java.awt.EventQueue;
 import java.io.IOException;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
 import gui.Map;
-import gui.truegui;
 import logic.Character;
 
 public class Game {
@@ -19,6 +14,17 @@ public class Game {
 	private int guard_personality = 0;
 	private int number_of_ogres = 0;
 
+	public Game(int level){
+		this.guard_personality = 1;
+		this.number_of_ogres = 1;
+		this.game_level = level;
+		
+		map = new Map(this, this.game_level, this.guard_personality);
+		if(this.game_level == 2 || this.game_level == 4)
+				this.getMap().createOgreArmy(this.number_of_ogres);
+		this.game_state = 1;
+	}
+	
 	public Game(int g, String o, String l){// Basic Constructor
 		
 		this.guard_personality = g;
@@ -40,6 +46,8 @@ public class Game {
 	
 	public boolean playGame(char dir) throws StringIndexOutOfBoundsException, IOException{
 		
+		if(!this.checkState())
+			return false;
     			//ask for user input
     			System.out.println("Enter a direction:");
     			//tries to move character	
@@ -48,8 +56,7 @@ public class Game {
     					this.getMap().getGuard().guardPatrol();
     					this.getMap().getGuard().checkForHero(this.getMap().getHero());
     					this.getMap().getLever().checkForHero(this.getMap().getHero());
-    					this.getMap().getDoors().get(0).checkExit(this.getMap().getHero(), 0);
-    					this.checkState();
+    					this.getMap().getDoors().get(0).checkExit(this.getMap().getHero());
     					return true;
     				}
     				else{
@@ -61,8 +68,8 @@ public class Game {
     			}
     			else if(this.game_level == 2){	//Level 2
     				if(this.getMap().getHero().moveCharacter(dir) == 1){
+    					this.getMap().getLever().setGuarded(false);
     					for(int i = 0; i < this.getMap().getOgres().size(); i++){
-    						//this.checkState();
     						this.getMap().getOgres().get(i).ogrePatrol();
     						this.getMap().getOgres().get(i).checkForKey(this.getMap().getLever());
     						this.getMap().getOgres().get(i).checkForHero(this.getMap().getHero());
@@ -71,7 +78,8 @@ public class Game {
     						this.getMap().getOgres().get(i).getClub().checkForHero(this.getMap().getHero());
     					}
     					this.getMap().getHero().checkForKey(this.getMap().getLever());
-    					this.getMap().getDoors().get(0).checkExit(this.getMap().getHero(), 1);
+    					this.getMap().getDoors().get(0).checkExit(this.getMap().getHero());
+    					this.getMap().getLever().checkGuarded();
     					this.checkState();
     					return true;
     				}
@@ -121,10 +129,19 @@ public class Game {
 			System.out.println("Game Over...");
 			return false;
 		}
-		if(this.game_state == 2 ){
+		else if(this.game_state == 2 ){
 			System.out.println("You win! Congratulations");
-			
-			return true;
+			if(this.game_level == 1){
+				this.setLevel(2);
+				this.setState(1);
+				this.getMap().setType(2);
+				this.getMap().createOgreArmy(this.getNumberOfOgres());
+				return true;
+			}
+			else{
+				this.game_state = 3;
+				return false;
+			}
 		}
 		else
 			return true;

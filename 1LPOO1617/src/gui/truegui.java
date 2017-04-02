@@ -18,6 +18,16 @@ import logic.Game;
 
 public class truegui extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JButton btnUp = new JButton("Up");
+	private JButton btnLeft = new JButton("Left");
+	private JButton btnRight = new JButton("Right");
+	private JButton btnDown = new JButton("Down");
+	private JButton btnNewGame = new JButton("New Game");
+	private JButton btnExit = new JButton("Exit");
 	private JFrame frame;
 	private JTextField numberOfOgresInput;
 	private JTextField levelInput;
@@ -82,25 +92,30 @@ public class truegui extends JPanel {
 		});
 		
 		JTextArea textAreaGameMap = new JTextArea();
+		textAreaGameMap.setWrapStyleWord(true);
+		textAreaGameMap.setLineWrap(true);
 		textAreaGameMap.setBounds(12, 113, 305, 210);
 		Font font = new Font("Courier New", Font.PLAIN, 16);
 		textAreaGameMap.setFont(font);
 		textAreaGameMap.setEditable(false);
 		panel.add(textAreaGameMap);
 		
-		JButton btnUp = new JButton("Up");
+		//Button Up
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
+				if(g.getState() == 0 || g.getState() == 3)
+					return;
 				try {
+					if(g.getLevel() == 2)
+						g.getMap().getOgres().get(0).clearClubs();
 					if(!g.playGame('w'))
 						lblGameStatus.setText("You can't go there...");
 					else
 						lblGameStatus.setText("Next move?");
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
-					checkState(lblGameStatus, textAreaGameMap);
-					if(g.getLevel() == 2)
-						g.getMap().getOgres().get(0).clearClubs();
+					if(!checkState(lblGameStatus, textAreaGameMap))
+						return;
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -111,19 +126,22 @@ public class truegui extends JPanel {
 		panel.add(btnUp);
 		btnUp.setEnabled(false);
 		
-		JButton btnLeft = new JButton("Left");
+		//Button Left
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
+				if(g.getState() == 0 || g.getState() == 3)
+					return;
 				try {
+					if(g.getLevel() == 2)
+						g.getMap().getOgres().get(0).clearClubs();
 					if(!g.playGame('a'))
 						lblGameStatus.setText("You can't go there...");
 					else 
 						lblGameStatus.setText("Next move?");
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
-					checkState(lblGameStatus, textAreaGameMap);
-					if(g.getLevel() == 2)
-						g.getMap().getOgres().get(0).clearClubs();
+					if(!checkState(lblGameStatus, textAreaGameMap))
+						return;
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -134,19 +152,22 @@ public class truegui extends JPanel {
 		panel.add(btnLeft);
 		btnLeft.setEnabled(false);
 		
-		JButton btnRight = new JButton("Right");
+		//Button Right
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
+				if(g.getState() == 0 || g.getState() == 3)
+					return;
 				try {
+					if(g.getLevel() == 2)
+						g.getMap().getOgres().get(0).clearClubs();
 					if(!g.playGame('d'))
 						lblGameStatus.setText("You can't go there...");
 					else 
 						lblGameStatus.setText("Next move?");
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
-					checkState(lblGameStatus, textAreaGameMap);
-					if(g.getLevel() == 2)
-							g.getMap().getOgres().get(0).clearClubs();
+					if(!checkState(lblGameStatus, textAreaGameMap))
+						return;
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -157,19 +178,20 @@ public class truegui extends JPanel {
 		panel.add(btnRight);
 		btnRight.setEnabled(false);
 		
-		JButton btnDown = new JButton("Down");
+		//Button Down
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				try {
+					if(g.getLevel() == 2)
+						g.getMap().getOgres().get(0).clearClubs();
 					if(!g.playGame('s'))
 						lblGameStatus.setText("You can't go there...");
 					else
 						lblGameStatus.setText("Next move?");
 					g.getMap().drawMap();
 					textAreaGameMap.setText(g.getMap().convertToGui());
-					checkState(lblGameStatus, textAreaGameMap);
-					if(g.getLevel() == 2)
-						g.getMap().getOgres().get(0).clearClubs();
+					if(!checkState(lblGameStatus, textAreaGameMap))
+						return;
 				} catch (StringIndexOutOfBoundsException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -180,8 +202,8 @@ public class truegui extends JPanel {
 		panel.add(btnDown);
 		btnDown.setEnabled(false);
 		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
+		//Button Exit
+		btnExit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
 				g.setState(0);
 				g.checkState();
@@ -214,10 +236,21 @@ public class truegui extends JPanel {
 		});
 		
 		
-		JButton btnNewGame = new JButton("New Game");
+		//Button New Game
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(guardPersonalityInput.getSelectedIndex() == 0){
+				try{
+					if(Integer.parseInt(levelInput.getText()) > 2 || 
+							Integer.parseInt(levelInput.getText()) < 1){
+						lblGameStatus.setText("Invalid Level number. Must be between 1 and 2!");
+						return ;
+					}
+				}
+				catch (NullPointerException | NumberFormatException e2){
+					lblGameStatus.setText("Invalid Level number. Must be between 1 and 2!");
+					return ;
+				}
+				if(guardPersonalityInput.getSelectedIndex() == 0 && Integer.parseInt(levelInput.getText()) == 1){
 					lblGameStatus.setText("You need to choose a Guard Personality!");
 					return ;
 				}
@@ -231,17 +264,6 @@ public class truegui extends JPanel {
 				}
 				catch (NullPointerException | NumberFormatException e2){
 					lblGameStatus.setText("Invalid number of Ogres. Must be between 1 and 5!");
-					return ;
-				}
-				try{
-					if(Integer.parseInt(levelInput.getText()) > 2 || 
-							Integer.parseInt(levelInput.getText()) < 1){
-						lblGameStatus.setText("Invalid Level number. Must be between 1 and 2!");
-						return ;
-					}
-				}
-				catch (NullPointerException | NumberFormatException e2){
-					lblGameStatus.setText("Invalid Level number. Must be between 1 and 2!");
 					return ;
 				}
 				String l = levelInput.getText();
@@ -273,20 +295,31 @@ public class truegui extends JPanel {
         frame.setVisible(true);
 	}
 	
-	private void checkState(JLabel x, JTextArea y){
+	private boolean checkState(JLabel x, JTextArea y){
 		if(g.getLevel() == 1 && g.getState() == 2){
-			x.setText("Congratulations");
-			y.setText("And just when you thought your captivity had ended, you realise you still have another challenge to overcome...go through the Keep's Crazy Ogre.");
+			x.setText("Congratulations!");
+			y.setText("And just when you thought your captivity had ended, you realise you still have another "
+					+ "challenge to overcome...go through the Keep's Crazy Ogre.\n(Choose any direction)");
+			return true;
 		}
-		else if(g.getLevel() == 2 && g.getState() == 2){
-			x.setText("Congratulations! Try Again? \nHit \"New Game\"!\n");
-			y.setText("You escaped!");
+		else if(g.getState() == 3){
+			y.setText("Congratulations! Try Again? \nHit \"New Game\"!\n");
+			x.setText("You escaped!");
+			btnUp.setEnabled(false);
+			btnLeft.setEnabled(false);
+			btnDown.setEnabled(false);
+			btnRight.setEnabled(false);
+			btnExit.setEnabled(false);
+			return false;
 		}			
 		else if(g.getState() == 0){
 			x.setText("Game over");
 			y.setText("You lost... Try Again? \nHit \"New Game\"!\n");
 			y.append(g.getMap().convertToGui());
+			return false;
 		}
+		else
+			return true;
 	}
 	
 	public int getNumberOfOgres(){

@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import character_subclasses.Blank;
-import character_subclasses.Ogre;
 import logic.Game;
 
 public class Character {
@@ -33,6 +32,7 @@ public class Character {
 	
 	public char checkDirection() throws StringIndexOutOfBoundsException{//Scans User input for movement direction
 		
+		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		String move = null;
 		char e = '\0';

@@ -21,24 +21,23 @@ public class Hero extends Character{
 		
 		super(g, x, y);
 		
-		if(arm)
+		if(arm){
 			this.symbol = " A ";
+			this.armed = true;
+		}
 		else
 			this.symbol = " H ";
 	}
 
 	public void checkForKey(Lever key){// Checks Hero's distance to the Key, "Picks up Key" if ON it 
 									   // Updates Map accordingly
-		if(key.getPickup()){
-			Character blank = new Blank(this.g, this.savex, this.savey);
-			this.g.setMap(key.getPosX(), key.getPosY(), blank);
-			this.armed = false;
-		}
-		else if(key.checkKey(this)){
+		if(!key.getPickup() && key.checkKey(this)){
 			this.symbol = " K ";
 			key.setPickup();
 		}
-		else
-			return;
+	}
+	
+	public boolean getArmed(){
+		return this.armed;
 	}
 }

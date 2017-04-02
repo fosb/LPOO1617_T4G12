@@ -32,14 +32,19 @@ public class Ogre extends Character{
 	}
 	
 
-	public void checkForHero(Character hero){// Checks Hero's distance to the Ogre: TRUE if in adjacent tile
+	public void checkForHero(Hero hero){// Checks Hero's distance to the Ogre: TRUE if in adjacent tile
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		
 		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1){
-			/*System.out.println("The Ogre caught you!");
-			this.g.setState(0);*/
-			stunned_status = 2;
+			if(hero.getArmed()){
+				stunned_status = 2;
+				this.club.setStunned(2);
+			}
+			else{
+				System.out.println("The Ogre caught you!");
+				this.g.setState(0);
+			}
 		}
 	}
 	
@@ -47,25 +52,26 @@ public class Ogre extends Character{
 		
 		if(stunned_status != 0){
 			stunned_status--;
+			this.club.setStunned(stunned_status);
 			return;
 		}
 		else{
 			while(true){
-				randomNum = randomGen.nextInt(4) + 1;
+				setRandomNum(randomGen.nextInt(4) + 1);
 				
-				if(randomNum == 1){
+				if(getRandomNum() == 1){
 					if(this.moveCharacter('w') == 1)
 						break;
 				}
-				else if(randomNum == 2){
+				else if(getRandomNum() == 2){
 					if(this.moveCharacter('a') == 1)
 						break;
 				}
-				else if(randomNum == 3){
+				else if(getRandomNum() == 3){
 					if(this.moveCharacter('s') == 1)
 						break;
 				}
-				else if(randomNum == 4){
+				else if(getRandomNum() == 4){
 					if(this.moveCharacter('d') == 1)
 						break;
 				}
@@ -91,11 +97,22 @@ public class Ogre extends Character{
 	}
 	
 	public void clearClubs(){
-		for(int i = 0; i < this.g.getMap().getOgres().size(); i++)
+		for(int i = 0; i < this.g.getMap().getOgres().size(); i++){
 			this.g.getMap().getOgres().get(i).getClub().clearClub();
+			this.g.getMap().getOgres().get(i).getClub().setPosX(this.posx);
+			this.g.getMap().getOgres().get(i).getClub().setPosY(this.posy);
+		}
 	}
 	
 	public int getStunned(){
 		return this.stunned_status;
+	}
+
+	public int getRandomNum() {
+		return randomNum;
+	}
+
+	public void setRandomNum(int randomNum) {
+		this.randomNum = randomNum;
 	}
 }

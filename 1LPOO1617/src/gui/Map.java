@@ -223,6 +223,12 @@ public class Map {
 		
 		while(ogreNumber != 0){
 			//random.nextInt(max - min + 1) + min 
+			if(this.game.getLevel() == 4){
+				Ogre og = new Ogre(this.game, 1, 3);
+				this.game.setMap(1, 3, og);
+				ogres.add(og);
+				return;
+			}
 			int posX = randomGen.nextInt(6 - 2 + 1) + 2;
 			int posY = randomGen.nextInt(6 - 2 + 1) + 2;
 			if(this.game.getMap().isCellEmpty(posX, posY) && posX <= 4 && posY >=4){

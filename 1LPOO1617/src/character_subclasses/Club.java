@@ -8,6 +8,7 @@ import logic.Character;
 public class Club extends Character{
 
 	private Random randomGen = new Random();
+	private int stunned_status = 0;
 	
 	public Club(Game g, int x, int y){// Basic Constructor
 		
@@ -28,15 +29,17 @@ public class Club extends Character{
 		
 		int x = hero.getPosX(), y = hero.getPosY();
 		
-		if(Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1){
+		if(this.stunned_status == 0 && Math.abs(x-this.posx)<=1 && Math.abs(y-this.posy)<=1){
 			System.out.println("The Club hit you!");
 			this.g.setState(0);
 		}
 	}
 	
 	public void clearClub(){// Removes Club's symbol from the Map
-		Character blank = new Blank(this.g, this.posx, this.posy);
-		g.setMap(this.posx, this.posy, blank);
+		if(this.g.getMapCoordinates(this.posx, this.posy) == " * "){
+			Character blank = new Blank(this.g, this.posx, this.posy);
+			g.setMap(this.posx, this.posy, blank);
+		}
 	}
 	
 	public void swingClub(Ogre ogre){// Places Club in a random valid tile adjacent to the Ogre
@@ -91,5 +94,9 @@ public class Club extends Character{
 				break;
 			}
 		}
+	}
+	
+	public void setStunned(int s){
+		this.stunned_status = s;
 	}
 }

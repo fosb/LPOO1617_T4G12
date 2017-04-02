@@ -40,15 +40,16 @@ public class Lever extends Character{
 												 // TRUE if ON the Key and considers Key "guarded"
 		int x = chr.getPosX(), y = chr.getPosY();// FALSE if adjacent(updates Map to ensure the Key doesn't vanish
 												 // FALSE if distant
-		if(!this.pickup && Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0){			
-			this.guarded = true;
-			return true;
-		}
-		else if(!this.pickup && chr.getClass() == Hero.class && Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0){
+		if(!this.pickup && chr.getClass() == Hero.class && Math.abs(x-this.posx) == 0 &&
+				Math.abs(y-this.posy) == 0){
 			this.pickup = true;
 			return true;
 		}
-		else if((chr.getClass() == Ogre.class || chr.getClass() == Club.class) &&
+		else if(!this.pickup && Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 0){			
+			this.guarded = true;
+			return true;
+		}
+		/*else if((chr.getClass() == Ogre.class || chr.getClass() == Club.class) &&
 				!this.pickup && (Math.abs(x-this.posx) == 1 && Math.abs(y-this.posy) == 0 ||
 				Math.abs(x-this.posx) == 0 && Math.abs(y-this.posy) == 1)){
 			this.guarded = false;
@@ -63,22 +64,32 @@ public class Lever extends Character{
 				this.g.setMap(this.posx, this.posy, blank);
 			}
 			return false;
-		}
-		else{
+		}*/
+		else
 			return false;
-		}
-			
 	}
 
+	public void checkGuarded(){
+		if(!this.guarded && !this.pickup){
+			Character k = new Lever(this.g, this.xSave, this.ySave);
+			this.g.setMap(this.xSave, this.ySave, k);
+		}
+	}
+	
 	public void setPickup(){
 		this.pickup = true;
 	}
 	
-	public void setGuarded(){
-		this.guarded = false;
-	}
-	
 	public boolean getPickup(){
 		return this.pickup;
+	}
+	
+	public boolean getGuarded(){
+		return this.guarded;
+	}
+
+	public void setGuarded(boolean b) {
+		// TODO Auto-generated method stub
+		this.guarded = b;
 	}
 }
