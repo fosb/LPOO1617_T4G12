@@ -260,4 +260,9 @@ public class Map {
 		return result;
 		
 	}
+	
+	public int getWidth(){
+		
+		return width;
+	}
 }
