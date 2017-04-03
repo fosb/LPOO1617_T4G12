@@ -1,22 +1,13 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
 import java.io.IOException;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import logic.Game;
 
-public class truegui extends JPanel {
+public class truegui extends JPanel{
 
 	/**
 	 * 
@@ -29,55 +20,64 @@ public class truegui extends JPanel {
 	private JButton btnNewGame = new JButton("New Game");
 	private JButton btnExit = new JButton("Exit");
 	private JFrame frame;
+	private JPanel panel;
 	private JTextField numberOfOgresInput;
 	private JTextField levelInput;
 	private String ogre_input;
 	private String guard_personality;
 	private Game g;
+	private ImageIcon image;
 	
-	/**
-	 * Create the panel.
-	 */
 	public truegui() {
 		initialize();
 	}
 	
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	Timer timer = new Timer(10,new ActionListener() {
+	      @Override
+	      public void actionPerformed(ActionEvent e) {
+	    	  if(panel != null)
+	    		  ((drawBlock) panel).updateGame(g.getMap());
+	          repaint();
+	      }
+	    });
+	    
+	  
+   
+	
 	private void initialize() {
+		g = new Game();
+		timer.start();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 583, 441);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JPanel panel = new JPanel();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		frame.setPreferredSize(new Dimension(1500, 1000)); 
+		JPanel panel = new drawBlock(g.getMap()); 
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
+		frame.pack();
 		
 		JLabel numberOfOgres = new JLabel("Number of Ogres");
-		numberOfOgres.setBounds(46, 49, 98, 16);
+		numberOfOgres.setBounds(252, 13, 98, 16);
 		panel.add(numberOfOgres);
 		
 		numberOfOgresInput = new JTextField();
-		numberOfOgresInput.setBounds(156, 46, 116, 22);
+		numberOfOgresInput.setBounds(362, 10, 116, 22);
 		panel.add(numberOfOgresInput);
 		numberOfOgresInput.setColumns(10);
 		numberOfOgresInput.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ogre_input = numberOfOgresInput.getText();
 			}
 		});
 		
 		JLabel lblGameStatus = new JLabel("game status");
-		lblGameStatus.setBounds(12, 354, 530, 16);
+		lblGameStatus.setBounds(12, 901, 530, 16);
 		panel.add(lblGameStatus);
 		
 		JLabel guardPersonality = new JLabel("Guard personality");
-		guardPersonality.setBounds(46, 81, 100, 16);
+		guardPersonality.setBounds(12, 13, 100, 16);
 		panel.add(guardPersonality);
 		
 		JComboBox<String> guardPersonalityInput = new JComboBox<String>();
-		guardPersonalityInput.setBounds(156, 78, 116, 22);
+		guardPersonalityInput.setBounds(124, 10, 116, 22);
 		panel.add(guardPersonalityInput);
 		guardPersonalityInput.addItem(" ");
 		guardPersonalityInput.addItem("Rookie");
@@ -94,11 +94,11 @@ public class truegui extends JPanel {
 		JTextArea textAreaGameMap = new JTextArea();
 		textAreaGameMap.setWrapStyleWord(true);
 		textAreaGameMap.setLineWrap(true);
-		textAreaGameMap.setBounds(12, 113, 305, 210);
+		textAreaGameMap.setBounds(1063, 609, 305, 210);
 		Font font = new Font("Courier New", Font.PLAIN, 16);
 		textAreaGameMap.setFont(font);
 		textAreaGameMap.setEditable(false);
-		panel.add(textAreaGameMap);
+		panel.add(textAreaGameMap);		
 		
 		//Button Up
 		btnUp.addActionListener(new ActionListener() {
@@ -122,7 +122,7 @@ public class truegui extends JPanel {
 				}
 			}
 		});
-		btnUp.setBounds(407, 185, 89, 25);
+		btnUp.setBounds(1153, 333, 89, 25);
 		panel.add(btnUp);
 		btnUp.setEnabled(false);
 		
@@ -148,7 +148,7 @@ public class truegui extends JPanel {
 				}
 			}
 		});
-		btnLeft.setBounds(352, 223, 89, 25);
+		btnLeft.setBounds(1015, 414, 89, 25);
 		panel.add(btnLeft);
 		btnLeft.setEnabled(false);
 		
@@ -174,7 +174,7 @@ public class truegui extends JPanel {
 				}
 			}
 		});
-		btnRight.setBounds(453, 223, 89, 25);
+		btnRight.setBounds(1304, 414, 89, 25);
 		panel.add(btnRight);
 		btnRight.setEnabled(false);
 		
@@ -198,7 +198,7 @@ public class truegui extends JPanel {
 				}
 			}
 		});
-		btnDown.setBounds(407, 261, 89, 25);
+		btnDown.setBounds(1153, 493, 89, 25);
 		panel.add(btnDown);
 		btnDown.setEnabled(false);
 		
@@ -217,16 +217,16 @@ public class truegui extends JPanel {
 				btnExit.setEnabled(false);
 			}
 		});
-		btnExit.setBounds(399, 64, 97, 25);
+		btnExit.setBounds(1165, 93, 97, 25);
 		panel.add(btnExit);
 		btnExit.setEnabled(false);
 		
 		JLabel Level = new JLabel("Level");
-		Level.setBounds(46, 16, 98, 16);
+		Level.setBounds(490, 13, 29, 16);
 		panel.add(Level);
 		
 		levelInput = new JTextField();
-		levelInput.setBounds(156, 13, 116, 22);
+		levelInput.setBounds(531, 10, 116, 22);
 		panel.add(levelInput);
 		levelInput.setColumns(10);
 		levelInput.addActionListener(new ActionListener() {
@@ -273,6 +273,7 @@ public class truegui extends JPanel {
 				g.getMap().drawMap();
 				textAreaGameMap.setText(g.getMap().convertToGui());
 				lblGameStatus.setText("Next move?");
+
 	    		
 				try {
 					g.getMap().drawMap();						
@@ -289,10 +290,9 @@ public class truegui extends JPanel {
 				btnExit.setEnabled(true);
 			}
 		});
-		btnNewGame.setBounds(399, 29, 97, 25);
-		panel.add(btnNewGame);
-
-        frame.setVisible(true);
+		btnNewGame.setBounds(1165, 39, 97, 25);
+		panel.add(btnNewGame);	
+		frame.setVisible(true);
 	}
 	
 	private boolean checkState(JLabel x, JTextArea y){
@@ -347,6 +347,7 @@ public class truegui extends JPanel {
 		
 		return this.g;
 	}
+
 }
 
 
